@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+
+
 use App\APIS\GetCouponsApis;
 use App\APIS\Interfaces\IAuthenticationApis;
 use App\Models\PropertiesModelRentify;
@@ -17,6 +19,11 @@ class UserDashboard extends BaseController{
     }
     public function index() {
 
+        //session()->remove('authenticatedUser');
+         if(session()->get('authenticatedUser')==null){
+             return redirect()->redirect(base_url().'login');
+        } 
+       //var_dump(session()->get('authenticatedUser')==null);
         $propertyList= $this->propertiesApi->fetchAllProperties();
         return view('userDashboard',["propertyList"=>$propertyList]);
     }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+
 use App\Models\UserModelRentify;
 use App\APIS\Repositories\AuthenticationApis;
 use App\APIS\Interfaces\IAuthenticationApis;
@@ -31,8 +32,6 @@ class AuthenticationController extends BaseController{
                 $decodedJson = json_decode($resp, true);
                 print_r($decodedJson);  
                 if(array_key_exists("data",$decodedJson["response"])){
-                    //print_r($decodedJson["response"]["data"][0]);
-                    print_r("data found");
                     $userModel = new UserModelRentify($decodedJson["response"]["data"][0]);
                     session()->set('authenticatedUser',$userModel);
                     return redirect()->redirect('/dashboard');

@@ -12,6 +12,8 @@ class Home extends BaseController
         $this->auth = new GetAuthenticationToken();
         //var_dump($this->auth->generateAuthenticationToken());
     } */
+
+    
     public function index(): string
     {
         /* $token = $this->auth->generateAuthenticationToken();

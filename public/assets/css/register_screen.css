@@ -28,6 +28,19 @@ body{
     background-position: 70%;
     width: 40%;
     height: auto;
+    color: white;
+    display: flex;
+    padding-left: 40px;
+    justify-content: center;
+    flex-direction: column;
+    gap : 10px;
+}
+.bold-text{
+    font-size: 35px;
+}
+.normal-text> a{
+    text-decoration: underline;
+    color: white;
 }
 .right{
     min-height: 100%;
