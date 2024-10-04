@@ -1,0 +1,125 @@
+/* Reset padding and margin for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General body styling */
+body {
+    background: gainsboro;
+    font-family: Arial, sans-serif;
+}
+
+/* Container for the content */
+
+/* Styling for details and list sections */
+ .list {
+    background: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    
+    padding: 10px;
+}
+
+/* Default layout for larger screens */
+
+
+
+
+
+
+.card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: start;
+    margin-top: 20px;
+    
+}
+.card>.personDetails{
+   
+    flex: 1;
+}
+.card>.personJob{
+     
+    flex: 1;
+}
+.card>.cardActions{
+    flex-direction: column-reverse;
+}
+
+
+
+
+button {
+    background-color: #143588;
+    margin: 20px;
+    color:white;
+    width: 30%;
+    height :30px;
+    border: none;
+    border-radius: 5px;
+    float: right;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: white;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+
+@media (max-width: 768px) {
+    .list {
+        width: 100%;
+    }
+    .personJob{
+        display: none;
+    }
+    .personDetails{
+        font-size: small;
+    }
+}
+
+/* Media query for smaller mobile devices */
+@media (max-width: 480px) {
+    
+    .personJob{
+        display: none;
+    }
+    .personDetails{
+        font-size: smaller;
+    }
+    
+}
+
+
+

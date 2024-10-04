@@ -1,0 +1,74 @@
+body{
+    background: white;
+    margin: 0%;
+    padding: 0%;
+
+}
+.parent{
+    position: relative;
+}
+.background{
+    /* background: url("rentify_background.png"); */
+    background-color: #fff3f6;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*filter: blur(5px);
+     -webkit-filter: blur(8px); */
+    position: absolute;
+    z-index: 1;
+    height: 100vh;
+    width: 100vw;
+}
+.circle1{
+    background-color: #143558;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 10px 15px 1020px;
+}
+.circle2{
+    position: absolute;
+    background-color: #143558;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 1020px 15px 10px;
+    bottom: 0;
+    right: 0;
+
+}
+.content{
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    
+    
+ 
+    
+    
+    
+}
+.note{
+    display: flex;
+    text-align: center;
+    font-size: 49px;
+    gap: 20px;
+    color: #000;
+
+
+    
+}
+.centercontent{
+    
+   
+    width: 40vw;
+    height: 40vh;
+    
+    font-family: "Gill Sans", sans-serif;
+}
+.next{
+    float: right;
+}
