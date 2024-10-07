@@ -11,7 +11,7 @@ class GetCouponsApis implements IGetCouponsApis{
     }
     function getAllCoupons(){
         $ch = curl_init();
-        $auth_token =$this->token->generateAuthenticationToken();//GetAuthenticationToken::generateAuthenticationToken();
+        $auth_token =$this->token->generateAuthenticationToken();
         $url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_Discounts/records/" ;
         //$url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_Discounts/records/?_sort=[{ \"fieldName\": \"MinimumPrice\", \"sortOrder\": \"ascend\" }]" ;
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -22,9 +22,11 @@ class GetCouponsApis implements IGetCouponsApis{
                         'Authorization:Bearer '.$auth_token));
         $resp = curl_exec($ch);
         $decodedJson =null;
+        //if there is an error then it will show error
         if ($e = curl_error($ch)) {
             //echo "Error:". $e;
         } else {
+            //if there is no error then it decodes the json
             $decodedJson = json_decode($resp, true);
            //var_dump( $decodedJson["response"]["data"]);
         }

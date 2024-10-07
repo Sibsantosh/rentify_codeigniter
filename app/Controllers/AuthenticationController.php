@@ -5,14 +5,17 @@ namespace App\Controllers;
 use App\Models\UserModelRentify;
 use App\APIS\Repositories\AuthenticationApis;
 use App\APIS\Interfaces\IAuthenticationApis;
-use Exception;
-use stdClass;
+
 class AuthenticationController extends BaseController{
 
     private  IAuthenticationApis $authenticationApi;
+
+    //this is the constructor used for initializing the corresponding api class
     public function __construct() {
         $this->authenticationApi =  new AuthenticationApis();
     }
+
+    //this is used for registering the user 
     public function registrationPage(){
 
         if  ($_POST){
@@ -24,13 +27,14 @@ class AuthenticationController extends BaseController{
     }
 
 
+    //this is for making the user login to the project
     public function LoginPage(){
 
         if  ($_POST){
             $resp = $this->authenticationApi->LoginUser($_POST);
 
                 $decodedJson = json_decode($resp, true);
-                print_r($decodedJson);  
+                //print_r($decodedJson);  
                 if(array_key_exists("data",$decodedJson["response"])){
                     $userModel = new UserModelRentify($decodedJson["response"]["data"][0]);
                     session()->set('authenticatedUser',$userModel);
