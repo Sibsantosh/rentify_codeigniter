@@ -15,8 +15,10 @@ class AuthenticationApis implements IAuthenticationApis {
         $ch = curl_init();
         $url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_Users/records";
 
+        #converts the given date tp filemaker supported dates
         $dateParts = explode('-',$postData["dob"]);
         $formattedDate = $dateParts[0].'+'.$dateParts[1].'+'.$dateParts[2];//yyyy-mm-dd
+        #creates the array for uploading 
         $dataArray = array("fieldData"=>array( "UserName"=> $postData["name"],
         "Email"=>$postData["email"],
         "PhoneNumber"=>$postData["phone"],
@@ -48,6 +50,8 @@ class AuthenticationApis implements IAuthenticationApis {
         $url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_Users/_find";
 
         //$dataArray = array("query"=>array(array("Email"=>str_replace("@","\\@",$_POST["email"]))),"Password"=>base64_encode($_POST["password"]));
+
+        #converts the email to filemaker supported email and the password to base64encoded password
         $dataArray = array("query"=>array(array( "Email"=> str_replace("@","\\@",$postData["email"]),
         "Password"=>base64_encode($postData["password"]))));
         $data = json_encode ($dataArray);
@@ -58,6 +62,7 @@ class AuthenticationApis implements IAuthenticationApis {
         }
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST,1);
+        #sets the header for the api
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
             "Authorization:Bearer $auth_token"));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);

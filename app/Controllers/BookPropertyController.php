@@ -10,10 +10,15 @@ class BookPropertyController extends BaseController{
 
     private IGetCouponsApis $couponApis;
     private IPropertiesApis $propetryApis;
+
+    //this is constructor used for loading the objects for the coupons and the property apis
+
     public function __construct() {
         $this->couponApis = new GetCouponsApis();
         $this->propetryApis = new PropertiesApis();
     }
+
+    //this function loads the page showing the details about the selected property
     function index(){
         $selectedProperty = session()->get('selectedProperty');
         if($selectedProperty == null){
@@ -25,6 +30,7 @@ class BookPropertyController extends BaseController{
 
 
     }
+    //this function checks the availability of any property and returns the data to the view and used for checking the availability of a page
     function checkAvailabilityForSpecificProperty($jsonData){
         $splitArr = explode("~~",$jsonData);
         $checkInDate = str_replace("~","/",$splitArr[0]);
@@ -35,6 +41,8 @@ class BookPropertyController extends BaseController{
     }
 
     
+    // this function is used when we are confirming any bookings i.e when we are giving all the data and creating a booking
+    //this fucntion will be calling two apis one for booking and other for the payment and storing both the data
     function confirmBookPropery($data){
         $pairs = explode('~~', $data);
     

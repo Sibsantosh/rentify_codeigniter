@@ -10,6 +10,8 @@ class PropertiesApis implements IPropertiesApis{
     public function __construct() {
         $this->token =  new GetAuthenticationToken();
     }
+
+    //this function fetch all the available properties available inside the database
     function fetchAllProperties(){
         $ch = curl_init();
         
@@ -40,6 +42,7 @@ class PropertiesApis implements IPropertiesApis{
         return $propertyList;
     }
 
+    //this function is used to fetch a single property form the database
     function getSingleProperty($recordId){
 
         $ch = curl_init();
@@ -66,6 +69,8 @@ class PropertiesApis implements IPropertiesApis{
 
     }
 
+    //this function is used to check whether a given property is available for a specific  date range
+    
     public function getPropertyAvailabilityForSpecificDate($checkIn,$checkOut,$propertyId){
         $ch = curl_init();
         $url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_BookingsSelfJoin/_find";
