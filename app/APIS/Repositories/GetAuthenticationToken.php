@@ -11,8 +11,8 @@ class GetAuthenticationToken implements IGetAuthenticationToken{
         print_r(session()->get('auth_token')); */
         if(session()->get("auth_expiry_time")>time() ){
             $token = session()->get('auth_token');
-            //session()->remove('auth_expiry_time');
-            //session()->set('auth_expiry_time',time() + 50000);
+            session()->remove('auth_expiry_time');
+            session()->set('auth_expiry_time',time() + 500);
             return $token;
 
         }
@@ -43,7 +43,7 @@ class GetAuthenticationToken implements IGetAuthenticationToken{
             session()->remove('auth_token');
             session()->remove('auth_expiry_time');
             session()->set('auth_token',$token);
-            session()->set('auth_expiry_time',time() + 50000);
+            session()->set('auth_expiry_time',time() + 500);
             
            // var_dump("". $token ."");
 

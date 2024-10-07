@@ -95,6 +95,10 @@
     <div class="child">
 
         <div class="left">
+
+            <div class="bold-text"> MAGIC IS IN THE DETAILS</div>
+            <div class="normal-text"> Please Use The Form To Register.</div>
+            <div class="normal-text"> If You are a member please <a href="<?php echo base_url().'login'; ?>">Login</a>.</div>
         </div>
         <div class="right">
             <form method = "POST" action = <?php echo base_url('register'); ?>>
