@@ -6,11 +6,11 @@
 - functions : Used Camel Casing for function names
 - views: Used camelCasing for naming
 
-### 2. Repository Structure utilization
+## 2. Repository Structure utilization
 - Adopted a standardized repository structure to ensure consistency and maintainability across the project
-###Interface and Repository Creation
+### Interface and Repository Creation
 - Developed interfaces and corresponding repository classes to define clear contracts 
-###Repository Implementation
+### Repository Implementation
 - Implemented repository classes to encapsulate data access logic, adhering to the defined interfaces for consistency and testability.
 
 ## 3. Controllers:
