@@ -12,7 +12,7 @@ class AuthenticationController extends BaseController{
 
     //this is the constructor used for initializing the corresponding api class
     public function __construct() {
-        $this->authenticationApi =  new AuthenticationApis();
+        $this->authenticationApi = service('getAuthenticationApiInstance');
     }
 
     //this is used for registering the user 

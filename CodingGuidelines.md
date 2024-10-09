@@ -28,4 +28,7 @@
 - Followed the codeigniter directory structure
 - Stored the APIs related interfaces and repositories in APIS package
 - Stored the css and images inside the assets folder i.e public/assets/css and public/assets/images folder respectively.
-
+## 7. Dependency Injection 
+- Dependency injection is not supported by code igniter 
+- Used the App\Config\Services class for managing the dependency in the project
+- Creates a new instance of a class when a function is called from any constructor

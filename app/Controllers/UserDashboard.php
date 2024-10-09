@@ -17,7 +17,7 @@ class UserDashboard extends BaseController{
 
     //this is the constructor used for loading the list of properties availabe 
     public function __construct() {
-        $this->propertiesApi =  new PropertiesApis();
+        $this->propertiesApi =  service('getPropertiesApisInstance');
     }
 
     //this function loads the user dashboard after login if there is no saved user in the session then it will redirect to the login page

@@ -14,8 +14,8 @@ class BookPropertyController extends BaseController{
     //this is constructor used for loading the objects for the coupons and the property apis
 
     public function __construct() {
-        $this->couponApis = new GetCouponsApis();
-        $this->propetryApis = new PropertiesApis();
+        $this->couponApis = service('getCouponApiInstance');
+        $this->propetryApis = service('getPropertiesApisInstance');
     }
 
     //this function loads the page showing the details about the selected property
