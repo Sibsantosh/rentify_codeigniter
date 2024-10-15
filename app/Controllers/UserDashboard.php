@@ -17,6 +17,7 @@ class UserDashboard extends BaseController{
 
     //this is the constructor used for loading the list of properties availabe 
     public function __construct() {
+        //getting the instance of the class from services class
         $this->propertiesApi =  service('getPropertiesApisInstance');
     }
 
