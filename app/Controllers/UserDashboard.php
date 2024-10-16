@@ -30,7 +30,12 @@ class UserDashboard extends BaseController{
         } 
        //var_dump(session()->get('authenticatedUser')==null);
         $propertyList= $this->propertiesApi->fetchAllProperties();
-        return view('userDashboard',["propertyList"=>$propertyList]);
+        if($propertyList==null){
+            return view('page_unavailable');
+        }
+        else{
+            return view('userDashboard',["propertyList"=>$propertyList]);
+        }
     }
 
     //this function loads the page for details of any property
@@ -40,12 +45,20 @@ class UserDashboard extends BaseController{
         //remove any saved property
         session()->remove('selectedProperty');
         $property = $this->propertiesApi->getSingleProperty($recordId);
+        if($property ==null){
+            return view('page_unavailable');
+        }
+        else{
+            session()->set("selectedProperty",$property);
+            return view('propertyDetails',["property"=>$property]);
+        }
         //var_dump($property);
         //var_dump( $recordId);
 
         //saves the selected property
-        session()->set("selectedProperty",$property);
-        return view('propertyDetails',["property"=>$property]);
+        
+        //session()->set("selectedProperty",$property);
+        //return view('propertyDetails',["property"=>$property]);
     }
 }
 
