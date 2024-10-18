@@ -50,7 +50,6 @@ class PropertiesApis implements IPropertiesApis
     function getSingleProperty($recordId)
     {
         $auth_token = $this->token->generateAuthenticationToken();
-        $auth_token = null;
         if($auth_token == null){
             return;
         }
@@ -65,7 +64,7 @@ class PropertiesApis implements IPropertiesApis
             return $property;
         }
         catch(Exception $e){
-            $e->getMessage();
+            echo $e->getMessage();
         }
 
        

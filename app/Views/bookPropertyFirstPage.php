@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,7 +123,8 @@
             margin-bottom: 15px;
             width: 32%;
         }
-        #guest-comment{
+
+        #guest-comment {
             width: 100%;
             padding: 10px;
             font-size: 14px;
@@ -131,6 +133,7 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
+
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -175,10 +178,10 @@
         }
 
         .coupon-box {
-           
+
             display: flex;
             padding: 10px;
-            
+
             justify-content: flex-start;
             align-items: center;
             flex-direction: row;
@@ -188,26 +191,28 @@
             background-color: #f9f9f9;
             border: 1px solid #ddd;
         }
-        
+
 
         .coupon-box p {
             color: red;
             font-weight: bold;
         }
 
-        .coupons-list{
+        .coupons-list {
             background-color: #f1f1f1;
             height: 240px;
-            
-            padding:10px;
+
+            padding: 10px;
             flex-grow: 1;
-            overflow-y: auto;            
+            overflow-y: auto;
         }
-        .coupons-list::-webkit-scrollbar{
+
+        .coupons-list::-webkit-scrollbar {
             display: none;
         }
-        .coupon{
-            background:white;
+
+        .coupon {
+            background: white;
             width: 90%;
             height: 50px;
             padding: 10px;
@@ -215,10 +220,11 @@
             margin-bottom: 10px;
             border: 0.5px solid #00000052;
             border-radius: 10px;
-          
-           
+
+
         }
-        .coupon-details{
+
+        .coupon-details {
             color: #222222;
             margin-left: 20px;
             display: flex;
@@ -226,13 +232,14 @@
             flex-direction: column;
             justify-content: center;
         }
-        .apply-coupon{
+
+        .apply-coupon {
             margin-left: 80px;
             justify-content: center;
             display: flex;
             align-items: center;
         }
-        
+
 
         .payment-summary {
             margin-top: 20px;
@@ -245,13 +252,15 @@
         .payment-summary p {
             margin: 5px 0;
         }
-        .coupon-show-button{
+
+        .coupon-show-button {
             width: 40px;
             display: flex;
             justify-content: space-around;
-            cursor:pointer;
+            cursor: pointer;
         }
-        .payment-options{
+
+        .payment-options {
             margin-top: 20px;
             padding: 20px;
             border-radius: 8px;
@@ -259,7 +268,7 @@
             border: 1px solid #ddd;
         }
 
-        #payment-method{
+        #payment-method {
             padding: 10px;
             font-size: 14px;
             width: 100%;
@@ -267,10 +276,11 @@
             border-radius: 5px;
             box-sizing: border-box
         }
-        #credit-card-fields{
+
+        #credit-card-fields {
             width: 100%;
         }
-        
+
         .form-group-payment input,
         .form-group-payment select,
         .form-group-payment textarea {
@@ -281,7 +291,7 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
-        
+
         .confirm-btn {
             margin-top: 20px;
             background-color: #007BFF;
@@ -373,7 +383,7 @@
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 100;
-            
+
         }
 
         .guests-popup-header {
@@ -402,8 +412,9 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+            gap: 10px;
         }
-        
+
         .guests-popup-body .guest-group label {
             flex: 1;
             text-align: left;
@@ -425,44 +436,43 @@
 
         .guests-popup-body .guest-group button:hover {
             background-color: #0056b3;
-            
-        }
 
+        }
     </style>
 </head>
+
 <body>
-    <div class="top-bar">
-        <h2>RENTIFY</h2>
-        
-        <div class="admin-section">
-            <span>admin</span>
-            <img src="https://via.placeholder.com/35" alt="Admin">
-        </div>
+    <div class="top-bar-container">
+
+        <?php include('common/top-bar.php'); ?>
     </div>
     <div class="container">
-        <div class="sidebar">
-            <ul>
-                <li><i>🏠</i><a href="#">Dashboard</a></li>
-                <li><i>🏢</i><a href="#">Properties</a></li>
-                <li><i>📅</i><a href="#">Bookings</a></li>
-                <li><i>📂</i><a href="#">Category</a></li>
-            </ul>
+        <div class="sidebar-container">
+            <?php include('common/side-bar.php'); ?>
         </div>
         <div class="content">
-            <input type="hidden" value="<?php if(isset($selectedProperty)){echo $selectedProperty->getPropertyId();}?>" id="propertyId">
-            <input type="hidden" value="<?php if(isset($selectedProperty)){echo $selectedProperty->getNoOfBedRoom();}?>" id="propertyTotalRooms">
+            <input type="hidden" value="<?php if (isset($selectedProperty)) {
+                                            echo $selectedProperty->getPropertyId();
+                                        } ?>" id="propertyId">
+            <input type="hidden" value="<?php if (isset($selectedProperty)) {
+                                            echo $selectedProperty->getNoOfBedRoom();
+                                        } ?>" id="propertyTotalRooms">
             <input type="hidden" value="0" id="BookedRooms">
-            <input type="hidden" value="<?php if(isset($selectedProperty)){echo $selectedProperty->getPricePerNight();}?>" id="pricePerNight">
-            
+            <input type="hidden" value="<?php if (isset($selectedProperty)) {
+                                            echo $selectedProperty->getPricePerNight();
+                                        } ?>" id="pricePerNight">
+
             <div style="display: flex; justify-content: space-between;">
-                
+
                 <div class="form-container">
-                <?php if(isset($selectedProperty)){echo $selectedProperty->getTitle();}?>
-                <hr>
-               
+                    <?php if (isset($selectedProperty)) {
+                        echo $selectedProperty->getTitle();
+                    } ?>
+                    <hr>
+
 
                     <div class="form-section">
-                        
+
                         <div class="form-group">
                             <label for="checkin">Check In Date *</label>
                             <input type="date" id="checkin">
@@ -502,23 +512,25 @@
                     </div>
 
                     <div class="form-section">
-                        
-                            <label for="guest-comment">Guest Comment</label>
-                            <textarea id="guest-comment" style="height: 100px;"></textarea>
-                        
+
+                        <label for="guest-comment">Guest Comment</label>
+                        <textarea id="guest-comment" style="height: 100px;"></textarea>
+
                     </div>
 
                 </div>
 
                 <div class="coupon-section">
                     <div class="coupon-box">
-                        <img src="assets/images/discount.png" width="40px" height="40px" >
-                        <div id="coupon-texts" >
-                        <p>Coupon Discounts<br><font color="black">Avail Discount</font></p>
-                        
+                        <img src="assets/images/discount.png" width="40px" height="40px">
+                        <div id="coupon-texts">
+                            <p>Coupon Discounts<br>
+                                <font color="black">Avail Discount</font>
+                            </p>
+
                         </div>
                         <div class="coupon-show-button">
-                        <p onclick="showPopup()" ><i class="fa fa-angle-right" style="font-style:bold;font-size:20px;color:red;" aria-hidden="true"></i></p>
+                            <p onclick="showPopup()"><i class="fa fa-angle-right" style="font-style:bold;font-size:20px;color:red;" aria-hidden="true"></i></p>
                         </div>
                     </div>
 
@@ -528,8 +540,8 @@
                         <p id="discount">Discount: ₹0.00</p>
                         <p id="total">Total: ₹0.00</p>
                     </div>
-                   
-                <!-- Payment Options -->
+
+                    <!-- Payment Options -->
                     <div class="payment-options">
                         <h3>Payment Options</h3>
                         <select id="payment-method" onchange="showPaymentFields()">
@@ -585,52 +597,52 @@
                         </div>
                     </div>
                     <button class="confirm-btn" onclick="bookProperty()">Confirm Booking</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Coupon Popup -->
-            <div class="popup-overlay" id="popup-overlay"></div>
-            <div class="popup" id="popup">
-                <div class="popup-header">
-                    <h3>Available Coupons</h3>
-                    <span class="popup-close" onclick="closePopup()">×</span>
-                </div>
-                <?php if(isset($couponList)){ ?>
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+        <div class="popup-header">
+            <h3>Available Coupons</h3>
+            <span class="popup-close" onclick="closePopup()">×</span>
+        </div>
+        <?php if (isset($couponList)) { ?>
 
-                        <div class="popup-body">
-                        <div class="coupons-list">
-                            <?php foreach($couponList as $coupon){ ?>
-                            <div class="coupon">
-                                <div class="coupon-image"><img src="assets/images/discount.png" width="50px" height="50px" ></div>
-                                <div class="coupon-details">
-                                    <div style="font-size: 14px;"><?php echo $coupon->getDiscountCode(); ?></div>
-                                    <div style="font-size: 9px;"><?php echo $coupon->getDescription(); ?></div>
-                                </div>
-                                <div class="apply-coupon">
-                                <button onclick="applyDiscount(<?php echo $coupon->getDiscountPercentage(); ?>)">Apply</button> 
-                                </div>
-                                
+            <div class="popup-body">
+                <div class="coupons-list">
+                    <?php foreach ($couponList as $coupon) { ?>
+                        <div class="coupon">
+                            <div class="coupon-image"><img src="assets/images/discount.png" width="50px" height="50px"></div>
+                            <div class="coupon-details">
+                                <div style="font-size: 14px;"><?php echo $coupon->getDiscountCode(); ?></div>
+                                <div style="font-size: 9px;"><?php echo $coupon->getDescription(); ?></div>
                             </div>
-                            <?php }?>
+                            <div class="apply-coupon">
+                                <button onclick="applyDiscount(<?php echo $coupon->getDiscountPercentage(); ?>)">Apply</button>
+                            </div>
+
                         </div>
-                        <button onclick="closePopup()">Close</button>
-                        </div>
-
-                    <?php
-                }else{ ?>
-
-                    <div class="popup-body">
-                    <p>No available coupons.</p>
-                    <button onclick="closePopup()">Close</button>
-                    </div>
-                <?php }
-
-                
-                ?>
-            
+                    <?php } ?>
+                </div>
+                <button onclick="closePopup()">Close</button>
             </div>
+
+        <?php
+        } else { ?>
+
+            <div class="popup-body">
+                <p>No available coupons.</p>
+                <button onclick="closePopup()">Close</button>
+            </div>
+        <?php }
+
+
+        ?>
+
+    </div>
 
     <!-- Guests Popup -->
     <div class="popup-overlay" id="guests-popup-overlay"></div>
@@ -670,6 +682,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var discount_Percentage = 0;
+
         function showPopup() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('popup-overlay').style.display = 'block';
@@ -681,13 +694,13 @@
         }
 
         function showGuestsPopup() {
-            
-            
-            if(document.getElementById('checkout').value=="" || document.getElementById('checkin').value==""){
+
+
+            if (document.getElementById('checkout').value == "" || document.getElementById('checkin').value == "") {
                 alert("Please Enter checkin and checkout dates")
                 return
             }
-            if(parseInt(document.getElementById('propertyTotalRooms').value-document.getElementById('BookedRooms').value,10)==0){
+            if (parseInt(document.getElementById('propertyTotalRooms').value - document.getElementById('BookedRooms').value, 10) == 0) {
                 alert("No Rooms Available for the selected date range")
                 return
             }
@@ -702,59 +715,59 @@
         }
 
         function showPaymentFields() {
-        
-        var paymentMethod = document.getElementById('payment-method').value;
-        var creditCardFields = document.getElementById('credit-card-fields');
-        var debitCardFields = document.getElementById('debit-card-fields');
-        var upiFields = document.getElementById('upi-fields');
-        var payLaterFields = document.getElementById('pay-later-fields');
 
-        creditCardFields.style.display = 'none';
-        debitCardFields.style.display = 'none';
-        upiFields.style.display = 'none';
-        payLaterFields.style.display = 'none';
+            var paymentMethod = document.getElementById('payment-method').value;
+            var creditCardFields = document.getElementById('credit-card-fields');
+            var debitCardFields = document.getElementById('debit-card-fields');
+            var upiFields = document.getElementById('upi-fields');
+            var payLaterFields = document.getElementById('pay-later-fields');
 
-        if (paymentMethod === 'credit-card') {
-            creditCardFields.style.display = 'block';
-        } else if (paymentMethod === 'debit-card') {
-            debitCardFields.style.display = 'block';
-        } else if (paymentMethod === 'upi') {
-            upiFields.style.display = 'block';
-        } else if (paymentMethod === 'pay-later') {
-            payLaterFields.style.display = 'block';
-            discount_Percentage = 0
-            setPrice()
-            
+            creditCardFields.style.display = 'none';
+            debitCardFields.style.display = 'none';
+            upiFields.style.display = 'none';
+            payLaterFields.style.display = 'none';
+
+            if (paymentMethod === 'credit-card') {
+                creditCardFields.style.display = 'block';
+            } else if (paymentMethod === 'debit-card') {
+                debitCardFields.style.display = 'block';
+            } else if (paymentMethod === 'upi') {
+                upiFields.style.display = 'block';
+            } else if (paymentMethod === 'pay-later') {
+                payLaterFields.style.display = 'block';
+                discount_Percentage = 0
+                setPrice()
+
+            }
         }
-    }
 
 
         function bookProperty() {
-        // Get form values
-        const checkinDate = document.getElementById('checkin').value;
-        const checkoutDate = document.getElementById('checkout').value;
-        const numberOfGuests = document.getElementById('guests').value;
-        const paymentMethod = document.getElementById('payment-method').value;
+            // Get form values
+            const checkinDate = document.getElementById('checkin').value;
+            const checkoutDate = document.getElementById('checkout').value;
+            const numberOfGuests = document.getElementById('guests').value;
+            const paymentMethod = document.getElementById('payment-method').value;
 
-        // Validate fields
-        if (!validateDates(checkinDate, checkoutDate)) {
-            alert('Check-out date must be after check-in date.');
-            return;
-        }
+            // Validate fields
+            if (!validateDates(checkinDate, checkoutDate)) {
+                alert('Check-out date must be after check-in date.');
+                return;
+            }
 
-        if (!validateGuests(numberOfGuests)) {
-            alert('Please enter a valid number of guests.');
-            return;
-        }
+            if (!validateGuests(numberOfGuests)) {
+                alert('Please enter a valid number of guests.');
+                return;
+            }
 
-        if (!validatePayment(paymentMethod)) {
-            //alert('Please select a valid payment option.');
-            return;
-        }
+            if (!validatePayment(paymentMethod)) {
+                //alert('Please select a valid payment option.');
+                return;
+            }
 
-        // Proceed with booking
-        alert('Property booked successfully!');
-        var data = {
+            // Proceed with booking
+            alert('Property booked successfully!');
+            var data = {
                 "name": "John Doe",
                 "age": 30,
                 "email": "johndoe@example.com",
@@ -766,124 +779,124 @@
                     "state": "CA",
                     "postalCode": "12345"
                 }
-                }
-               
-       window.location.href = '<?php echo base_url('cff/') ?>'+getFormDataString()
-        
-        // Here you would typically send this data to a server
-    }
+            }
 
-    
+            window.location.href = '<?php echo base_url('cff/') ?>' + getFormDataString()
 
-    function getFormDataString() {
-        // Get all the form fields
-        const checkinDate = document.getElementById('checkin').value;
-        const checkoutDate = document.getElementById('checkout').value;
-        const propertyId = document.getElementById('propertyId').value
-        const guests = document.getElementById('guests').value;
-        const roomType = document.getElementById('room-type').value;
-        const roomPlan = document.getElementById('room-plan').value;
-        var guestComment = document.getElementById('guest-comment').value;
-        if(guestComment=='')
-            guestComment = `-`
-        const paymentMethod = document.getElementById('payment-method').value;
-        const creditCardNumber = document.getElementById('credit-card-number').value;
-        const creditCardExpiry = document.getElementById('credit-card-expiry').value;
-        const creditCardCVV = document.getElementById('credit-card-cvv').value;
-        const debitCardNumber = document.getElementById('debit-card-number').value;
-        const debitCardExpiry = document.getElementById('debit-card-expiry').value;
-        const debitCardCVV = document.getElementById('debit-card-cvv').value;
-        const upiId = document.getElementById('upi-id').value;
-
-        // Construct the string
-        let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${guests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~payment-method~${paymentMethod}`;
-
-        // Add payment details based on the selected payment method
-        if (paymentMethod === 'credit-card') {
-            formDataString += `~~credit-card-number~${creditCardNumber}~~credit-card-expiry~${creditCardExpiry}~~credit-card-cvv~${creditCardCVV}`;
-        } else if (paymentMethod === 'debit-card') {
-            formDataString += `~~debit-card-number~${debitCardNumber}~~debit-card-expiry~${debitCardExpiry}~~debit-card-cvv~${debitCardCVV}`;
-        } else if (paymentMethod === 'upi') {
-            formDataString += `~~upi-id~${upiId}`;
+            // Here you would typically send this data to a server
         }
 
-        return formDataString;
-    }
+
+
+        function getFormDataString() {
+            // Get all the form fields
+            const checkinDate = document.getElementById('checkin').value;
+            const checkoutDate = document.getElementById('checkout').value;
+            const propertyId = document.getElementById('propertyId').value
+            const guests = document.getElementById('guests').value;
+            const roomType = document.getElementById('room-type').value;
+            const roomPlan = document.getElementById('room-plan').value;
+            var guestComment = document.getElementById('guest-comment').value;
+            if (guestComment == '')
+                guestComment = `-`
+            const paymentMethod = document.getElementById('payment-method').value;
+            const creditCardNumber = document.getElementById('credit-card-number').value;
+            const creditCardExpiry = document.getElementById('credit-card-expiry').value;
+            const creditCardCVV = document.getElementById('credit-card-cvv').value;
+            const debitCardNumber = document.getElementById('debit-card-number').value;
+            const debitCardExpiry = document.getElementById('debit-card-expiry').value;
+            const debitCardCVV = document.getElementById('debit-card-cvv').value;
+            const upiId = document.getElementById('upi-id').value;
+
+            // Construct the string
+            let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${guests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~payment-method~${paymentMethod}`;
+
+            // Add payment details based on the selected payment method
+            if (paymentMethod === 'credit-card') {
+                formDataString += `~~credit-card-number~${creditCardNumber}~~credit-card-expiry~${creditCardExpiry}~~credit-card-cvv~${creditCardCVV}`;
+            } else if (paymentMethod === 'debit-card') {
+                formDataString += `~~debit-card-number~${debitCardNumber}~~debit-card-expiry~${debitCardExpiry}~~debit-card-cvv~${debitCardCVV}`;
+            } else if (paymentMethod === 'upi') {
+                formDataString += `~~upi-id~${upiId}`;
+            }
+
+            return formDataString;
+        }
 
 
 
 
 
-    function validateDates(checkin, checkout) {
-        const checkinDate = new Date(checkin);
-        const checkoutDate = new Date(checkout);
-        return checkoutDate > checkinDate;
-    }
+        function validateDates(checkin, checkout) {
+            const checkinDate = new Date(checkin);
+            const checkoutDate = new Date(checkout);
+            return checkoutDate > checkinDate;
+        }
 
-    function validateGuests(guests) {
-        // Assuming guests is a string like "2 Adults 1 Children 0 Infants"
-        const guestArray = guests.split(' ');
-        const totalGuests = parseInt(guestArray[0]) + parseInt(guestArray[2]) + parseInt(guestArray[4]);
-        return totalGuests > 0;
-    }
+        function validateGuests(guests) {
+            // Assuming guests is a string like "2 Adults 1 Children 0 Infants"
+            const guestArray = guests.split(' ');
+            const totalGuests = parseInt(guestArray[0]) + parseInt(guestArray[2]) + parseInt(guestArray[4]);
+            return totalGuests > 0;
+        }
 
 
-    
+
         function validatePayment() {
-        var paymentMethod = document.getElementById('payment-method').value;
-        var isValid = true;
-        var errorMessage = '';
+            var paymentMethod = document.getElementById('payment-method').value;
+            var isValid = true;
+            var errorMessage = '';
 
-        if (paymentMethod === 'credit-card') {
-            var creditCardNumber = document.getElementById('credit-card-number').value;
-            var creditCardExpiry = document.getElementById('credit-card-expiry').value;
-            var creditCardCVV = document.getElementById('credit-card-cvv').value;
+            if (paymentMethod === 'credit-card') {
+                var creditCardNumber = document.getElementById('credit-card-number').value;
+                var creditCardExpiry = document.getElementById('credit-card-expiry').value;
+                var creditCardCVV = document.getElementById('credit-card-cvv').value;
 
-            if (!validateCardNumber(creditCardNumber)) {
-                errorMessage += 'Invalid credit card number.\n';
-                isValid = false;
-            }
-            if (!validateExpiryDate(creditCardExpiry)) {
-                errorMessage += 'Invalid expiry date.\n';
-                isValid = false;
-            }
-            if (!validateCVV(creditCardCVV)) {
-                errorMessage += 'Invalid CVV.\n';
-                isValid = false;
-            }
-        } else if (paymentMethod === 'debit-card') {
-            var debitCardNumber = document.getElementById('debit-card-number').value;
-            var debitCardExpiry = document.getElementById('debit-card-expiry').value;
-            var debitCardCVV = document.getElementById('debit-card-cvv').value;
+                if (!validateCardNumber(creditCardNumber)) {
+                    errorMessage += 'Invalid credit card number.\n';
+                    isValid = false;
+                }
+                if (!validateExpiryDate(creditCardExpiry)) {
+                    errorMessage += 'Invalid expiry date.\n';
+                    isValid = false;
+                }
+                if (!validateCVV(creditCardCVV)) {
+                    errorMessage += 'Invalid CVV.\n';
+                    isValid = false;
+                }
+            } else if (paymentMethod === 'debit-card') {
+                var debitCardNumber = document.getElementById('debit-card-number').value;
+                var debitCardExpiry = document.getElementById('debit-card-expiry').value;
+                var debitCardCVV = document.getElementById('debit-card-cvv').value;
 
-            if (!validateCardNumber(debitCardNumber)) {
-                errorMessage += 'Invalid debit card number.\n';
-                isValid = false;
+                if (!validateCardNumber(debitCardNumber)) {
+                    errorMessage += 'Invalid debit card number.\n';
+                    isValid = false;
+                }
+                if (!validateExpiryDate(debitCardExpiry)) {
+                    errorMessage += 'Invalid expiry date.\n';
+                    isValid = false;
+                }
+                if (!validateCVV(debitCardCVV)) {
+                    errorMessage += 'Invalid CVV.\n';
+                    isValid = false;
+                }
+            } else if (paymentMethod === 'upi') {
+                var upiId = document.getElementById('upi-id').value;
+                if (!validateUPI(upiId)) {
+                    errorMessage += 'Invalid UPI ID.\n';
+                    isValid = false;
+                }
+            } else if (paymentMethod === 'pay-later') {
+                // No validation needed for pay later option
             }
-            if (!validateExpiryDate(debitCardExpiry)) {
-                errorMessage += 'Invalid expiry date.\n';
-                isValid = false;
+
+            if (!isValid) {
+                alert(errorMessage);
             }
-            if (!validateCVV(debitCardCVV)) {
-                errorMessage += 'Invalid CVV.\n';
-                isValid = false;
-            }
-        } else if (paymentMethod === 'upi') {
-            var upiId = document.getElementById('upi-id').value;
-            if (!validateUPI(upiId)) {
-                errorMessage += 'Invalid UPI ID.\n';
-                isValid = false;
-            }
-        } else if (paymentMethod === 'pay-later') {
-            // No validation needed for pay later option
+
+            return isValid;
         }
-
-        if (!isValid) {
-            alert(errorMessage);
-        }
-
-        return isValid;
-    }
 
         function validateCardNumber(cardNumber) {
             // Simple regex for card number validation (Luhn algorithm can be used for more accuracy)
@@ -912,28 +925,29 @@
 
         function applyDiscount(code) {
             // Simple example: if the code is "DISCOUNT10", apply a 10% discount
-            
+
             discount_Percentage = code;
-            if(document.getElementById('payment-method').value=="pay-later")
+            if (document.getElementById('payment-method').value == "pay-later")
                 discount_Percentage = 0
-            
+
             setPrice()
-            
+
         }
-        function setPrice(){
-            if(document.getElementById('payment-method').value=="pay-later")
+
+        function setPrice() {
+            if (document.getElementById('payment-method').value == "pay-later")
                 discount_Percentage = 0
-            var adults = parseInt( document.getElementById('adults').value);
-            var children = parseInt( document.getElementById('children').value);
-            var infants = parseInt( document.getElementById('infants').value);
-            var totalPeople = adults+children+infants;
-            totalPeople = (totalPeople%2!=0)? totalPeople+1:totalPeople
-            
-            var totalRooms = (totalPeople)/2;
+            var adults = parseInt(document.getElementById('adults').value);
+            var children = parseInt(document.getElementById('children').value);
+            var infants = parseInt(document.getElementById('infants').value);
+            var totalPeople = adults + children + infants;
+            totalPeople = (totalPeople % 2 != 0) ? totalPeople + 1 : totalPeople
+
+            var totalRooms = (totalPeople) / 2;
             var pricePerNight = document.getElementById('pricePerNight').value;
             var PayableAmount = pricePerNight * totalRooms
-            var discountAmount = (discount_Percentage*PayableAmount)/100
-            
+            var discountAmount = (discount_Percentage * PayableAmount) / 100
+
             var totalPrice = PayableAmount - discountAmount
             document.getElementById('payable-amount').innerText = `Payable Amount: ₹${PayableAmount.toFixed(2)}`;
             document.getElementById('discount').innerText = `Payable Amount: ₹${discountAmount.toFixed(2)}`;
@@ -943,20 +957,21 @@
 
 
         }
+
         function changeGuestCount(type, delta) {
-            var adults = parseInt( document.getElementById('adults').value);
-            var children = parseInt( document.getElementById('children').value);
-            var infants = parseInt( document.getElementById('infants').value);
-            if((adults+children+infants)==10 && delta ==1){
+            var adults = parseInt(document.getElementById('adults').value);
+            var children = parseInt(document.getElementById('children').value);
+            var infants = parseInt(document.getElementById('infants').value);
+            if ((adults + children + infants) == 10 && delta == 1) {
                 alert("max guests");
                 return
             }
-            if(delta>0){
-            if(parseInt(((adults+children+infants)/2),10)>=parseInt(document.getElementById('propertyTotalRooms').value-document.getElementById('BookedRooms').value,10)){
-                alert("room not available for the selected guests")
-                return
+            if (delta > 0) {
+                if (parseInt(((adults + children + infants) / 2), 10) >= parseInt(document.getElementById('propertyTotalRooms').value - document.getElementById('BookedRooms').value, 10)) {
+                    alert("room not available for the selected guests")
+                    return
+                }
             }
-        }
 
             var input = document.getElementById(type);
             var value = parseInt(input.value, 10);
@@ -975,25 +990,25 @@
         }
 
 
-        function checkPropertyAvailability(){
+        function checkPropertyAvailability() {
 
             console.log("inside")
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-                if(this.readyState ==4 && this.status == 200){
-                    try{
-                    var resp = JSON.parse(this.responseText)
-                    console.log(resp)
-                    var summ = 0
-                    if(resp.response.data != null){
-                        Object.entries(resp.response.data).forEach(([key, value]) => {
-                            //console.log(`${value.fieldData.TotalRoomsBooked}`);
-                            summ +=value.fieldData.TotalRoomsBooked
-                        });
-                    }
-                    //console.log(summ)
-                    document.getElementById('BookedRooms').value = summ
-                    }catch(e){
+                if (this.readyState == 4 && this.status == 200) {
+                    try {
+                        var resp = JSON.parse(this.responseText)
+                        console.log(resp)
+                        var summ = 0
+                        if (resp.response.data != null) {
+                            Object.entries(resp.response.data).forEach(([key, value]) => {
+                                //console.log(`${value.fieldData.TotalRoomsBooked}`);
+                                summ += value.fieldData.TotalRoomsBooked
+                            });
+                        }
+                        //console.log(summ)
+                        document.getElementById('BookedRooms').value = summ
+                    } catch (e) {
                         console.log(e)
                     }
                     //alert(this.response);
@@ -1007,52 +1022,54 @@
             var checkInDate = new Date(checkInDateField.value)
             //checkInDate = new Date();
             var date = checkInDate.getDate()
-            if(date<10)
-                date = "0"+date;
-            var month = checkInDate.getMonth()+1
-            if(month<10)
-                month = "0"+month;
+            if (date < 10)
+                date = "0" + date;
+            var month = checkInDate.getMonth() + 1
+            if (month < 10)
+                month = "0" + month;
             var year = checkInDate.getFullYear()
-            var checkIn =`${month}~${date}~${year}`
+            var checkIn = `${month}~${date}~${year}`
             //checkIn = "08~15~2024"
 
             date = checkOutDate.getDate()
-            if(date<10)
-                date = "0"+date;
-            month = checkOutDate.getMonth()+1
-            if(month<10)
-                month = "0"+month;
+            if (date < 10)
+                date = "0" + date;
+            month = checkOutDate.getMonth() + 1
+            if (month < 10)
+                month = "0" + month;
             year = checkOutDate.getFullYear()
-            var checkOut =`${month}~${date}~${year}`
+            var checkOut = `${month}~${date}~${year}`
             //checkOut = "08~19~2024"
             var propertyId = document.getElementById('propertyId').value
-            var requestObject = {"checkin":checkIn,
-                "checkout":checkout,
-                "propertyId":propertyId
+            var requestObject = {
+                "checkin": checkIn,
+                "checkout": checkout,
+                "propertyId": propertyId
 
             }
-            xhttp.open("GET", "<?php echo base_url().'checkAvailability/'; ?>" + checkIn+"~~"+checkOut+"~~"+propertyId, true);
+            xhttp.open("GET", "<?php echo base_url() . 'checkAvailability/'; ?>" + checkIn + "~~" + checkOut + "~~" + propertyId, true);
             xhttp.send();
         }
-        function setCheckOutDate(){
+
+        function setCheckOutDate() {
             var checkInDateField = document.getElementById('checkin');
             var checkOutDateField = document.getElementById('checkout');
             var checkInDate = new Date(checkInDateField.value)
             var checkOutDate = new Date(checkInDateField.value)
-            checkOutDate.setDate(checkOutDate.getDate()+1)
+            checkOutDate.setDate(checkOutDate.getDate() + 1)
             var date = checkOutDate.getDate()
-            if(date<10)
-                date = "0"+date;
-            var month = checkOutDate.getMonth()+1
-            if(month<10)
-                month = "0"+month;
+            if (date < 10)
+                date = "0" + date;
+            var month = checkOutDate.getMonth() + 1
+            if (month < 10)
+                month = "0" + month;
             var year = checkOutDate.getFullYear()
-            checkOutDateField.value =`${year}-${month}-${date}`
+            checkOutDateField.value = `${year}-${month}-${date}`
             document.getElementById('duration').value = "1 day"
             checkPropertyAvailability()
         }
 
-        function setCheckInDates(){
+        function setCheckInDates() {
             var checkInDateField = document.getElementById('checkin');
             var checkOutDateField = document.getElementById('checkout');
             var checkOutDate = new Date(checkOutDateField.value)
@@ -1060,64 +1077,62 @@
             checkInDate = new Date();
             checkInDate.setDate(checkInDate.getDate())
             var date = checkInDate.getDate()
-            if(date<10)
-                date = "0"+date;
-            var month = checkInDate.getMonth()+1
-            if(month<10)
-                month = "0"+month;
+            if (date < 10)
+                date = "0" + date;
+            var month = checkInDate.getMonth() + 1
+            if (month < 10)
+                month = "0" + month;
             var year = checkInDate.getFullYear()
-            checkInDateField.value =`${year}-${month}-${date}`
+            checkInDateField.value = `${year}-${month}-${date}`
             var checkOutDate = new Date(checkInDateField.value)
-            checkOutDate.setDate(checkOutDate.getDate()+1)
-            
+            checkOutDate.setDate(checkOutDate.getDate() + 1)
+
             date = checkOutDate.getDate()
-            if(date<10)
-               date = "0"+date;
-            month = checkOutDate.getMonth()+1
-            if(month<10)
-                month = "0"+month;
+            if (date < 10)
+                date = "0" + date;
+            month = checkOutDate.getMonth() + 1
+            if (month < 10)
+                month = "0" + month;
             var year = checkOutDate.getFullYear()
-            checkOutDateField.value =`${year}-${month}-${date}`
+            checkOutDateField.value = `${year}-${month}-${date}`
             document.getElementById('duration').value = "1 day"
 
         }
-        function checkDates(event){
+
+        function checkDates(event) {
             //alert("inside function")
             var checkInDateField = document.getElementById('checkin');
             var checkOutDateField = document.getElementById('checkout');
-           // var statusElement = document.getElementById('status');
-            
-            
-            
-            if(checkOutDateField.value ==""){
+            // var statusElement = document.getElementById('status');
+
+
+
+            if (checkOutDateField.value == "") {
                 setCheckOutDate();
                 return
-            }
-            else if(checkInDateField.value ==""){
+            } else if (checkInDateField.value == "") {
                 setCheckInDates();
                 return
             }
 
             var checkInDate = new Date(checkInDateField.value)
-            
+
             var dateToday = new Date()
             let diffTime = checkInDate - dateToday;
-            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            if(diffDays<0){
+            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays < 0) {
                 setCheckInDates()
-            }
-            else{
+            } else {
                 var checkOutDate = new Date(checkOutDateField.value)
                 diffTime = checkOutDate - checkInDate;
                 diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                if(diffDays<0){
+                if (diffDays < 0) {
                     setCheckOutDate()
-                }
-                else{
-                    if(diffDays==0){
+                } else {
+                    if (diffDays == 0) {
                         diffDays = 1
                     }
-                    document.getElementById('duration').value =`${diffDays} day`
+                    document.getElementById('duration').value = `${diffDays} day`
                     checkPropertyAvailability();
                 }
             }
@@ -1126,13 +1141,14 @@
             //console.log(diffDays)
 
         }
-        document.getElementById('checkin').oninput = function(){
+        document.getElementById('checkin').oninput = function() {
             checkDates()
         }
-        document.getElementById('checkout').oninput = function(){
+        document.getElementById('checkout').oninput = function() {
             checkDates()
         }
     </script>
-    
+
 </body>
+
 </html>

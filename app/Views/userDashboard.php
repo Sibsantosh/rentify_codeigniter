@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
             background-color: #f5f5f5;
         }
 
-        
+
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -22,7 +23,7 @@
             background: #ffffff;
             padding-left: 40px;
             padding-right: 40px;
-            
+
         }
 
         .top-bar input[type="text"] {
@@ -47,6 +48,7 @@
             width: 35px;
             height: 35px;
         }
+
         .top-bar h2 {
             margin: 0;
             padding: 10px 0;
@@ -73,7 +75,8 @@
             margin-top: 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Evenly space the list items */
+            gap: 15px;
+            /* Evenly space the list items */
             height: 25rem;
         }
 
@@ -101,7 +104,7 @@
             overflow-y: auto;
         }
 
-        
+
 
         .property-card {
             display: flex;
@@ -137,7 +140,8 @@
             color: #888;
             font-size: 14px;
         }
-        .property-action  {
+
+        .property-action {
             width: 50%;
             display: flex;
             justify-content: space-between;
@@ -171,7 +175,7 @@
 
         .search-section {
             display: flex;
-            
+
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
@@ -184,7 +188,8 @@
         .search-section div {
             display: flex;
             align-items: center;
-            gap: 10px; /* Evenly space the input fields */
+            gap: 10px;
+            /* Evenly space the input fields */
         }
 
         .search-section input[type="date"],
@@ -217,15 +222,18 @@
         .guests-control button:hover {
             background-color: #ccc;
         }
-        #totalGuests{
+
+        #totalGuests {
             width: 25px;
             align-items: center;
             padding-left: 20px;
         }
+
         .property-card div:last-child {
             display: flex;
             align-items: center;
-            gap: 15px; /* Evenly space the elements */
+            gap: 15px;
+            /* Evenly space the elements */
         }
 
         .property-card div:last-child p {
@@ -233,50 +241,41 @@
         }
     </style>
 </head>
+
 <body>
-<div class="top-bar">
-                <h2>RENTIFY</h2>
-                <input type="text" placeholder="Search...">
-                <div class="admin-section">
-                    <span><?php echo session()->get('authenticatedUser')->getUserName();?></span>
-                    <img src="https://img.icons8.com/?size=100&id=vB3C82RDvwwa&format=png&color=000000" alt="Admin">
-                </div>
-            </div>
+   
+        <?php include('common/top-bar.php'); ?>
+
     <div class="container">
-        
-        <div class="sidebar">
-            
-            <ul>
-                <li><i class="home-icon">🏠</i><a href="#">Dashboard</a></li>
-                <li><i class="property-icon">🏢</i><a href="#">Properties</a></li>
-                <li><i class="booking-icon">📅</i><a href="#">Bookings</a></li>
-                <li><i class="category-icon">📂</i><a href="#">Category</a></li>
-            </ul>
-        </div>
+
+       
+            <?php include('common/side-bar.php'); ?>
+   
         <div class="content">
-            
+
 
             <div class="search-section">
                 <div style="display: flex;flex-direction: column;">Check in<input type="date" placeholder="Check In"></div>
                 <div style="display: flex;flex-direction: column;">Check out<br><input type="date" placeholder="Check Out"></div>
-                
+
                 <div style="display: flex;flex-direction: column;">Guests
                     <div class="guests-control">
-                    <button id="decrease" >-</button>
-                    <input type="number" style="width: 25px; text-align:center; pointer-events:none;" value="0" id="totalGuests">
-                    <button id="increase" >+</button>
+                        <button id="decrease">-</button>
+                        <input type="number" style="width: 25px; text-align:center; pointer-events:none;" value="0" id="totalGuests">
+                        <button id="increase">+</button>
                     </div>
                 </div>
-                
-                
-               
+
+
+
             </div>
             <!-- https://via.placeholder.com/120x80 -->
-             <?php //echo str_replace("https://","http://",$property->getImage() ); ?>
+            <?php //echo str_replace("https://","http://",$property->getImage() ); 
+            ?>
             <?php
-                foreach($propertyList as $property){
-                    ?>
-                    <div class="property-card">
+            foreach ($propertyList as $property) {
+            ?>
+                <div class="property-card">
                     <img src="https://picsum.photos/120/80/" alt="<?php echo $property->getTitle(); ?>">
                     <div class="property-info">
                         <h3><?php echo $property->getTitle(); ?></h3>
@@ -286,21 +285,21 @@
                     <div class="property-action">
                         <p><?php echo $property->getPropertyType(); ?></p>
                         <div class="property-action">
-                        <p class="status-available"><?php echo $property->getStatus(); ?></p>
-                        <p class="price">₹<?php echo $property->getPricePerNight(); ?></p>
-                        <button class="check-btn" onclick="location.href='<?php echo base_url().'property/'.$property->getRecordId();?>'">Check</button>
+                            <p class="status-available"><?php echo $property->getStatus(); ?></p>
+                            <p class="price">₹<?php echo $property->getPricePerNight(); ?></p>
+                            <button class="check-btn" onclick="location.href='<?php echo base_url() . 'property/' . $property->getRecordId(); ?>'">Check</button>
                         </div>
                     </div>
                 </div>
-                <?php
-                }
+            <?php
+            }
 
 
             ?>
-           
 
 
-            
+
+
         </div>
     </div>
     <script>
@@ -322,13 +321,14 @@
             }
 
             // Get the current value and increase it
-            
+
             var currentValue = parseInt(inputElement.value, 10);
-            if(currentValue<=9)
+            if (currentValue <= 9)
                 inputElement.value = currentValue + 1;
             else
                 inputElement.value = currentValue + 1;
         }
+
         function decrease() {
             // Get the input element
             var inputElement = document.getElementById('totalGuests');
@@ -340,9 +340,9 @@
             }
 
             // Get the current value and increase it
-            
+
             var currentValue = parseInt(inputElement.value, 10);
-            if(currentValue<=1)
+            if (currentValue <= 1)
                 inputElement.value = 0;
             else
                 inputElement.value = currentValue - 1;

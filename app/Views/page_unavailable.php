@@ -67,7 +67,7 @@
 
     <script>
         function goHome() {
-            window.location.href = '/';
+            window.location.href = '/dashboard';
         }
     </script>
 </body>

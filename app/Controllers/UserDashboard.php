@@ -45,9 +45,12 @@ class UserDashboard extends BaseController{
         //remove any saved property
         session()->remove('selectedProperty');
         $property = $this->propertiesApi->getSingleProperty($recordId);
+
+        //if the api response is null or there is some issues in the api then the page not available is shown
         if($property ==null){
             return view('page_unavailable');
         }
+        //else the data is stored in the session
         else{
             session()->set("selectedProperty",$property);
             return view('propertyDetails',["property"=>$property]);

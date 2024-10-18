@@ -436,24 +436,15 @@
 <body>
 
 <?php if(isset($property)){?>
-<div class="top-bar">
-    <h2>RENTIFY</h2>
-    
-    <div class="admin-section">
-        <span><?php echo session()->get('authenticatedUser')->getUserName();?></span>
-        <img src="https://img.icons8.com/?size=100&id=vB3C82RDvwwa&format=png&color=000000" alt="Admin">
-    </div>
-</div>
+   
+
+<?php include('common/top-bar.php'); ?>
+
 
 <div class="container">
-    <div class="sidebar">
-        <ul>
-            <li><i class="home-icon">🏠</i><a href="#">Dashboard</a></li>
-            <li><i class="property-icon">🏢</i><a href="#">Properties</a></li>
-            <li><i class="booking-icon">📅</i><a href="#">Bookings</a></li>
-            <li><i class="category-icon">📂</i><a href="#">Category</a></li>
-        </ul>
-    </div>
+
+            <?php include('common/side-bar.php'); ?>
+    
 
     <div class="content">
         <div class="property-details">
