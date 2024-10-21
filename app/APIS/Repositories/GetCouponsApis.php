@@ -1,16 +1,23 @@
 <?php
+
 namespace App\APIS\Repositories;
+
+use App\APIS\Api_Wrapper\GetApi;
 use APP\APIS\Interfaces\IGetAuthenticationToken;
 use App\APIS\Interfaces\IGetCouponsApis;
 use App\Models\CouponsModelRentify;
+use Exception;
 
-class GetCouponsApis implements IGetCouponsApis{
+class GetCouponsApis implements IGetCouponsApis
+{
     private  IGetAuthenticationToken $token;
-    public function __construct() {
-        $this->token =  new GetAuthenticationToken();
+    public function __construct()
+    {
+        $this->token =  service('getAuthenticationTokenInstance');
     }
-    function getAllCoupons(){
-        $ch = curl_init();
+    function getAllCoupons()
+    {
+        /* $ch = curl_init();
         $auth_token =$this->token->generateAuthenticationToken();
         $url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_Discounts/records/" ;
         //$url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_Discounts/records/?_sort=[{ \"fieldName\": \"MinimumPrice\", \"sortOrder\": \"ascend\" }]" ;
@@ -41,7 +48,27 @@ class GetCouponsApis implements IGetCouponsApis{
         //var_dump($couponList);
         return $couponList;
 
+        */
+
+        $auth_token = $this->token->generateAuthenticationToken();
+        if ($auth_token == null) {
+            return;
+        }
+        $route = getenv('fetch_all_coupons');
+        $ch = GetApi::GET_API($route, $auth_token);
+        try {
+
+            $resp = curl_exec($ch);
+            $decodedJson = json_decode($resp, true);
+            $couponList = array();
+            foreach ($decodedJson["response"]["data"] as $rawCoupon) {
+                $couponModel = new CouponsModelRentify($rawCoupon);
+
+                array_push($couponList, $couponModel);
+            }
+            return $couponList;
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
     }
 }
-
-?>

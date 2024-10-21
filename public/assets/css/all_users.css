@@ -14,13 +14,13 @@ body {
 /* Container for the content */
 
 /* Styling for details and list sections */
- .list {
+.list {
     background: white;
     margin-left: 20px;
     margin-right: 20px;
     border: 1px solid #000;
     border-radius: 10px;
-    
+
     padding: 10px;
 }
 
@@ -41,17 +41,20 @@ body {
     gap: 20px;
     align-items: start;
     margin-top: 20px;
-    
+
 }
-.card>.personDetails{
-   
+
+.card>.personDetails {
+
     flex: 1;
 }
-.card>.personJob{
-     
+
+.card>.personJob {
+
     flex: 1;
 }
-.card>.cardActions{
+
+.card>.cardActions {
     flex-direction: column-reverse;
 }
 
@@ -61,9 +64,9 @@ body {
 button {
     background-color: #143588;
     margin: 20px;
-    color:white;
+    color: white;
     width: 30%;
-    height :30px;
+    height: 30px;
     border: none;
     border-radius: 5px;
     float: right;
@@ -101,25 +104,25 @@ button {
     .list {
         width: 100%;
     }
-    .personJob{
+
+    .personJob {
         display: none;
     }
-    .personDetails{
+
+    .personDetails {
         font-size: small;
     }
 }
 
 /* Media query for smaller mobile devices */
 @media (max-width: 480px) {
-    
-    .personJob{
+
+    .personJob {
         display: none;
     }
-    .personDetails{
+
+    .personDetails {
         font-size: smaller;
     }
-    
+
 }
-
-
-

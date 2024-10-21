@@ -899,7 +899,7 @@
         }
 
         function validateCardNumber(cardNumber) {
-            // Simple regex for card number validation (Luhn algorithm can be used for more accuracy)
+            // Simple regex for card number validation
             var regex = /^\d{16}$/;
             return regex.test(cardNumber);
         }
@@ -992,25 +992,31 @@
 
         function checkPropertyAvailability() {
 
-            console.log("inside")
+            //console.log("inside")
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    try {
-                        var resp = JSON.parse(this.responseText)
-                        console.log(resp)
-                        var summ = 0
-                        if (resp.response.data != null) {
-                            Object.entries(resp.response.data).forEach(([key, value]) => {
-                                //console.log(`${value.fieldData.TotalRoomsBooked}`);
-                                summ += value.fieldData.TotalRoomsBooked
-                            });
+                    if (this.responseText != "" || this.responseText == null) {
+
+                        try {
+                            var resp = JSON.parse(this.responseText)
+                            // console.log(this.responseText)
+                            var summ = 0
+                            if (resp.response.data != null) {
+                                Object.entries(resp.response.data).forEach(([key, value]) => {
+                                    console.log(`${value.fieldData.TotalRoomsBooked}`);
+                                    summ += value.fieldData.TotalRoomsBooked
+                                });
+                            }
+                            //console.log(summ)
+                            document.getElementById('BookedRooms').value = summ
+                        } catch (e) {
+                            console.log(e)
                         }
-                        //console.log(summ)
-                        document.getElementById('BookedRooms').value = summ
-                    } catch (e) {
-                        console.log(e)
+                    } else {
+                        alert("some error occured please try after some time")
                     }
+                    //console.log(this.responseText)
                     //alert(this.response);
                 }
             };
@@ -1039,7 +1045,7 @@
                 month = "0" + month;
             year = checkOutDate.getFullYear()
             var checkOut = `${month}~${date}~${year}`
-            //checkOut = "08~19~2024"
+            //checkOut = "≤ 08~19~2024"
             var propertyId = document.getElementById('propertyId').value
             var requestObject = {
                 "checkin": checkIn,

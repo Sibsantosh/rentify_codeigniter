@@ -246,6 +246,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -377,7 +378,9 @@
         }
 
         .tabs-section .tab-button.active {
-            background-color:#143558 /*#007BFF*/;
+            background-color: #143558
+                /*#007BFF*/
+            ;
             color: white;
         }
 
@@ -389,7 +392,8 @@
         .tab-content.active {
             display: block;
         }
-        #reviews{
+
+        #reviews {
             display: flex;
             flex-direction: column;
         }
@@ -407,110 +411,116 @@
         .property-info p {
             color: #666;
         }
+
         iframe {
             width: 100%;
             height: 300px;
             border: none;
             margin-top: 20px;
         }
-        #bookNowButton{
-            
-        padding: 10px;
-        width: 28%;
-        margin-right: 20px;
-        margin-bottom: 10px;
-        align-items: center;
-        justify-content: center;
-        float: right;
-        margin-top: 20px;
-        color: #fff;
-        background: #143558;
-        border: 1px solid #222222;
-        border-radius: 4px;
-        font-size: 16px;
-        transition: border-color 0.3s ease-in-out;
+
+        #bookNowButton {
+
+            padding: 10px;
+            width: 28%;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            align-items: center;
+            justify-content: center;
+            float: right;
+            margin-top: 20px;
+            color: #fff;
+            background: #143558;
+            border: 1px solid #222222;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
 
         }
     </style>
 </head>
+
 <body>
 
-<?php if(isset($property)){?>
-   
-
-<?php include('common/top-bar.php'); ?>
+    <?php if (isset($property)) { ?>
 
 
-<div class="container">
+        <?php include('common/top-bar.php'); ?>
+
+
+        <div class="container">
 
             <?php include('common/side-bar.php'); ?>
-    
 
-    <div class="content">
-        <div class="property-details">
-            <?php //Property Info Section ?>
-            <div class="property-info-section">
-                <div class="property-info">
-                    <img src="https://picsum.photos/1260/750" alt="Hotel Image">
-                    <h3><?php echo $property->getTitle(); ?></h3>
-                    <p><?php echo $property->getDescription(); ?></p>
-                    
-                </div>
-            </div>
 
-            <?php //Tabs Section ?>
-            <div class="tabs-section">
-                <div class="tabs">
-                    <button class="tab-button active" onclick="openTab(event, 'details')">Details</button>
-                    <button class="tab-button" onclick="openTab(event, 'address')">Address</button>
-                    <button class="tab-button" onclick="openTab(event, 'reviews')">Reviews</button>
-                </div>
+            <div class="content">
+                <div class="property-details">
+                    <?php //Property Info Section 
+                    ?>
+                    <div class="property-info-section">
+                        <div class="property-info">
+                            <img src="https://picsum.photos/1260/750" alt="Hotel Image">
+                            <h3><?php echo $property->getTitle(); ?></h3>
+                            <p><?php echo $property->getDescription(); ?></p>
 
-                <?php //Tab Content ?>
-                <div id="details" class="tab-content active">
-                    <h4>Details</h4>
-                    <p><strong>Price:</strong> ₹<?php echo $property->getPricePerNight(); ?></p>
-                    <p><strong>Property Type:</strong> <?php echo $property->getPropertyType(); ?></p>
-                    <p><strong>Total Bedroom:</strong> 2</p>
-                    <p><strong>Status:</strong> <?php echo $property->getStatus(); ?></p>
-                </div>
+                        </div>
+                    </div>
 
-                <div id="address" class="tab-content">
-                    <h4>Address</h4>
-                    <p><strong>City:</strong> <?php echo $property->getCity(); ?></p>
-                    <p><strong>State:</strong> <?php echo $property->getState(); ?></p>
-                    <p><strong>Country:</strong> <?php echo $property->getCountry(); ?></p>
-                    <div class="map">
-                    <!-- You can embed a Google Maps iframe here -->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31565.5176475546!2d85.79135142805007!3d20.296059203029843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909a4657ffbb5%3A0x9ec6bb0ff4a30609!2sBhubaneswar%2C%20Odisha%20752050%2C%20India!5e0!3m2!1sen!2sus!4v1667819214823!5m2!1sen!2sus"  style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                </div>
+                    <?php //Tabs Section 
+                    ?>
+                    <div class="tabs-section">
+                        <div class="tabs">
+                            <button class="tab-button active" onclick="openTab(event, 'details')">Details</button>
+                            <button class="tab-button" onclick="openTab(event, 'address')">Address</button>
+                            <button class="tab-button" onclick="openTab(event, 'reviews')">Reviews</button>
+                        </div>
 
-                <div id="reviews" class="tab-content">
-                    <h4>Reviews</h4>
-                    <p>No reviews available yet.</p>
+                        <?php //Tab Content 
+                        ?>
+                        <div id="details" class="tab-content active">
+                            <h4>Details</h4>
+                            <p><strong>Price:</strong> ₹<?php echo $property->getPricePerNight(); ?></p>
+                            <p><strong>Property Type:</strong> <?php echo $property->getPropertyType(); ?></p>
+                            <p><strong>Total Bedroom:</strong> 2</p>
+                            <p><strong>Status:</strong> <?php echo $property->getStatus(); ?></p>
+                        </div>
+
+                        <div id="address" class="tab-content">
+                            <h4>Address</h4>
+                            <p><strong>City:</strong> <?php echo $property->getCity(); ?></p>
+                            <p><strong>State:</strong> <?php echo $property->getState(); ?></p>
+                            <p><strong>Country:</strong> <?php echo $property->getCountry(); ?></p>
+                            <div class="map">
+                                <!-- You can embed a Google Maps iframe here -->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31565.5176475546!2d85.79135142805007!3d20.296059203029843!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909a4657ffbb5%3A0x9ec6bb0ff4a30609!2sBhubaneswar%2C%20Odisha%20752050%2C%20India!5e0!3m2!1sen!2sus!4v1667819214823!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+
+                        <div id="reviews" class="tab-content">
+                            <h4>Reviews</h4>
+                            <p>No reviews available yet.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<button id="bookNowButton" onclick="location.href='<?php echo base_url().'bookProperty';?>'"> Book Now </button>
-<script>
-    function openTab(evt, tabName) {
-        var i, tabcontent, tabbuttons;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].classList.remove("active");
-        }
-        tabbuttons = document.getElementsByClassName("tab-button");
-        for (i = 0; i < tabbuttons.length; i++) {
-            tabbuttons[i].classList.remove("active");
-        }
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
-</script>
+        <button id="bookNowButton" onclick="location.href='<?php echo base_url() . 'bookProperty'; ?>'"> Book Now </button>
+        <script>
+            function openTab(evt, tabName) {
+                var i, tabcontent, tabbuttons;
+                tabcontent = document.getElementsByClassName("tab-content");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].classList.remove("active");
+                }
+                tabbuttons = document.getElementsByClassName("tab-button");
+                for (i = 0; i < tabbuttons.length; i++) {
+                    tabbuttons[i].classList.remove("active");
+                }
+                document.getElementById(tabName).classList.add("active");
+                evt.currentTarget.classList.add("active");
+            }
+        </script>
 </body>
+
 </html>
 <?php } ?>
-          

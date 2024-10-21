@@ -1,13 +1,15 @@
-body{
+body {
     background: white;
     margin: 0%;
     padding: 0%;
 
 }
-.parent{
+
+.parent {
     position: relative;
 }
-.background{
+
+.background {
     /* background: url("rentify_background.png"); */
     background-color: #fff3f6;
     background-repeat: no-repeat;
@@ -19,13 +21,15 @@ body{
     height: 100vh;
     width: 100vw;
 }
-.circle1{
+
+.circle1 {
     background-color: #143558;
     width: 20rem;
     height: 20rem;
     border-radius: 10px 15px 1020px;
 }
-.circle2{
+
+.circle2 {
     position: absolute;
     background-color: #143558;
     width: 15rem;
@@ -35,23 +39,25 @@ body{
     right: 0;
 
 }
-.content{
+
+.content {
     width: 100vw;
     height: 100vh;
     z-index: 1;
     position: absolute;
     display: flex;
-    
+
     justify-content: center;
     align-items: center;
-    
-    
- 
-    
-    
-    
+
+
+
+
+
+
 }
-.note{
+
+.note {
     display: flex;
     text-align: center;
     font-size: 49px;
@@ -59,16 +65,18 @@ body{
     color: #000;
 
 
-    
+
 }
-.centercontent{
-    
-   
+
+.centercontent {
+
+
     width: 40vw;
     height: 40vh;
-    
+
     font-family: "Gill Sans", sans-serif;
 }
-.next{
+
+.next {
     float: right;
 }
