@@ -13,8 +13,9 @@ class AuthenticationApis implements IAuthenticationApis
     private  IGetAuthenticationToken $token;
     public function __construct()
     {
-        $this->token =  new GetAuthenticationToken();
+        $this->token =  service('getAuthenticationTokenInstance');
     }
+
 
     function RegisterUser($postData)
     {

@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Models;
-class CouponsModelRentify {
-   
+
+class CouponsModelRentify
+{
+
 
     private $discountId;
     private $discountCode;
@@ -12,7 +15,8 @@ class CouponsModelRentify {
     private $dateEnd;
     private $recordId;
 
-    public function __construct($coupon) {
+    public function __construct($coupon)
+    {
         $data = $coupon['fieldData'];
         $this->discountId = $data['DiscountId'];
         $this->discountCode = $data['DicountCode'];
@@ -23,7 +27,7 @@ class CouponsModelRentify {
         $this->dateEnd = $data['DateEnd'];
         $this->recordId = $coupon['recordId'];
     }
-     // Getters
+    // Getters
     public function getDiscountId()
     {
         return $this->discountId;
@@ -62,11 +66,4 @@ class CouponsModelRentify {
     {
         return $this->recordId;
     }
-
-
-
-
 }
-   
-
-?>

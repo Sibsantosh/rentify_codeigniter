@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Models;
 
 
@@ -178,6 +179,3 @@ class PropertiesModelRentify
         return $this->recordId;
     }
 }
-?>
-
-

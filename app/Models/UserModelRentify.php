@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Models;
-class UserModelRentify {
+
+class UserModelRentify
+{
     private $userId;
     private $userName;
     private $email;
@@ -12,7 +15,8 @@ class UserModelRentify {
     private $recordId;
     private $modId;
 
-    public function __construct($data) {
+    public function __construct($data)
+    {
         $this->userId = $data['fieldData']['UserId'];
         $this->userName = $data['fieldData']['UserName'];
         $this->email = $data['fieldData']['Email'];
@@ -26,83 +30,98 @@ class UserModelRentify {
     }
 
     // Getters
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
-    public function getUserName() {
+    public function getUserName()
+    {
         return $this->userName;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function getPhoneNumber() {
+    public function getPhoneNumber()
+    {
         return $this->phoneNumber;
     }
 
-    public function getDateOfBirth() {
+    public function getDateOfBirth()
+    {
         return $this->dateOfBirth;
     }
 
-    public function getUserType() {
+    public function getUserType()
+    {
         return $this->userType;
     }
 
-    public function getPicture() {
+    public function getPicture()
+    {
         return $this->picture;
     }
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->passowrd;
     }
 
-    public function getRecordId() {
+    public function getRecordId()
+    {
         return $this->recordId;
     }
 
-    public function getModId() {
+    public function getModId()
+    {
         return $this->modId;
     }
 
     // Setters
-    public function setUserId($userId) {
+    public function setUserId($userId)
+    {
         $this->userId = $userId;
     }
 
-    public function setUserName($userName) {
+    public function setUserName($userName)
+    {
         $this->userName = $userName;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 
-    public function setPhoneNumber($phoneNumber) {
+    public function setPhoneNumber($phoneNumber)
+    {
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function setDateOfBirth($dateOfBirth) {
+    public function setDateOfBirth($dateOfBirth)
+    {
         $this->dateOfBirth = $dateOfBirth;
     }
 
-    public function setUserType($userType) {
+    public function setUserType($userType)
+    {
         $this->userType = $userType;
     }
 
-    public function setPicture($picture) {
+    public function setPicture($picture)
+    {
         $this->picture = $picture;
     }
 
-    public function setRecordId($recordId) {
+    public function setRecordId($recordId)
+    {
         $this->recordId = $recordId;
     }
 
-    public function setModId($modId) {
+    public function setModId($modId)
+    {
         $this->modId = $modId;
     }
 }
-
-
-
-?>

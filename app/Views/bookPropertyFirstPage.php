@@ -15,85 +15,9 @@
             background-color: #f5f5f5;
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-            background: #ffffff;
-            padding-left: 40px;
-            padding-right: 40px;
-        }
-
-        .top-bar input[type="text"] {
-            padding: 10px;
-            font-size: 14px;
-            width: 250px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .admin-section {
-            display: flex;
-            align-items: center;
-        }
-
-        .admin-section span {
-            margin-right: 10px;
-        }
-
-        .admin-section img {
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-        }
-
-        .top-bar h2 {
-            margin: 0;
-            padding: 10px 0;
-            font-size: 24px;
-            color: #007BFF;
-            font-weight: 500;
-        }
-
-        .container {
+        <?php include('common/top-bar.css'); ?><?php include('common/side-bar.css'); ?>.container {
             display: flex;
             height: 100vh;
-        }
-
-        .sidebar {
-            width: 120px;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-right: 1px solid #ddd;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            height: 25rem;
-        }
-
-        .sidebar ul li {
-            display: flex;
-            align-items: center;
-            height: 40rem;
-            flex-direction: column;
-        }
-
-        .sidebar ul li i {
-            margin-right: 10px;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-            font-weight: 500;
         }
 
         .content {
@@ -442,14 +366,14 @@
 </head>
 
 <body>
-    <div class="top-bar-container">
 
-        <?php include('common/top-bar.php'); ?>
-    </div>
+
+    <?php include('common/top-bar.php'); ?>
+
     <div class="container">
-        <div class="sidebar-container">
-            <?php include('common/side-bar.php'); ?>
-        </div>
+
+        <?php include('common/side-bar.php'); ?>
+
         <div class="content">
             <input type="hidden" value="<?php if (isset($selectedProperty)) {
                                             echo $selectedProperty->getPropertyId();
@@ -538,6 +462,7 @@
                         <p>Payment Summary</p>
                         <p id="payable-amount">Payable Amount: ₹0.00</p>
                         <p id="discount">Discount: ₹0.00</p>
+                        <hr>
                         <p id="total">Total: ₹0.00</p>
                     </div>
 
@@ -683,6 +608,8 @@
     <script>
         var discount_Percentage = 0;
 
+        var coupon_code = "";
+        var totalAmount = 0;
         function showPopup() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('popup-overlay').style.display = 'block';
@@ -765,7 +692,7 @@
                 return;
             }
 
-            // Proceed with booking
+           /*  // Proceed with booking
             alert('Property booked successfully!');
             var data = {
                 "name": "John Doe",
@@ -779,9 +706,24 @@
                     "state": "CA",
                     "postalCode": "12345"
                 }
-            }
+            } */
 
-            window.location.href = '<?php echo base_url('cff/') ?>' + getFormDataString()
+            var postData = getFormDataString()
+            fetch('<?php echo base_url('cff') ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData) // Convert data to JSON
+            })
+            .then(response => response.json()) // Assuming you return JSON from the server
+            .then(data => {
+                console.log('Success:', data['receivedData']);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            //window.location.href = '<?php //echo base_url('cff/') ?>' + getFormDataString()
 
             // Here you would typically send this data to a server
         }
@@ -790,7 +732,7 @@
 
         function getFormDataString() {
             // Get all the form fields
-            const checkinDate = document.getElementById('checkin').value;
+             const checkinDate = document.getElementById('checkin').value;
             const checkoutDate = document.getElementById('checkout').value;
             const propertyId = document.getElementById('propertyId').value
             const guests = document.getElementById('guests').value;
@@ -807,9 +749,18 @@
             const debitCardExpiry = document.getElementById('debit-card-expiry').value;
             const debitCardCVV = document.getElementById('debit-card-cvv').value;
             const upiId = document.getElementById('upi-id').value;
+            var adults = document.getElementById('adults').value;
+            var children = document.getElementById('children').value;
+            var infants = document.getElementById('infants').value;
+            var totalGuests = parseInt(adults)+parseInt(children)+parseInt(infants);
+            var totalPersons = (totalGuests % 2 != 0) ? totalGuests + 1 : totalGuests
+
+            var totalRooms = (totalPersons) / 2;
+            
+            
 
             // Construct the string
-            let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${guests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~payment-method~${paymentMethod}`;
+           /* let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${totalGuests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~total-price~${totalAmount}~~total-rooms~${totalRooms}~~payment-method~${paymentMethod}`;
 
             // Add payment details based on the selected payment method
             if (paymentMethod === 'credit-card') {
@@ -820,7 +771,38 @@
                 formDataString += `~~upi-id~${upiId}`;
             }
 
-            return formDataString;
+            return formDataString; */
+
+            let formDataJson = {
+            "checkin": checkinDate,
+            "checkout": checkoutDate,
+            "propertyId": propertyId,
+            "guests": totalGuests,
+            "room-type": roomType,
+            "room-plan": roomPlan,
+            "guest-comment": guestComment,
+            "total-price": totalAmount,
+            "total-rooms": totalRooms,
+            "payment-method": paymentMethod
+        };
+
+        // Add payment details based on the selected payment method
+        if (paymentMethod === 'credit-card') {
+            formDataJson['credit-card-number'] = creditCardNumber;
+            formDataJson['credit-card-expiry'] = creditCardExpiry;
+            formDataJson['credit-card-cvv'] = creditCardCVV;
+        } else if (paymentMethod === 'debit-card') {
+            formDataJson['debit-card-number'] = debitCardNumber;
+            formDataJson['debit-card-expiry'] = debitCardExpiry;
+            formDataJson['debit-card-cvv'] = debitCardCVV;
+        } else if (paymentMethod === 'upi') {
+            formDataJson['upi-id'] = upiId;
+        }
+
+        // Now you have a JSON object
+        //console.log(JSON.stringify(formDataJson));  // To convert to JSON string if needed
+        return formDataJson;
+
         }
 
 
@@ -899,7 +881,7 @@
         }
 
         function validateCardNumber(cardNumber) {
-            // Simple regex for card number validation (Luhn algorithm can be used for more accuracy)
+            // Simple regex for card number validation
             var regex = /^\d{16}$/;
             return regex.test(cardNumber);
         }
@@ -950,8 +932,9 @@
 
             var totalPrice = PayableAmount - discountAmount
             document.getElementById('payable-amount').innerText = `Payable Amount: ₹${PayableAmount.toFixed(2)}`;
-            document.getElementById('discount').innerText = `Payable Amount: ₹${discountAmount.toFixed(2)}`;
-            document.getElementById('total').innerText = `Payable Amount: ₹${totalPrice.toFixed(2)}`;
+            document.getElementById('discount').innerText = `Discount: ₹${discountAmount.toFixed(2)}`;
+            document.getElementById('total').innerText = `Total: ₹${totalPrice.toFixed(2)}`;
+            totalAmount = totalPrice;
 
             console.log(totalPrice)
 
@@ -992,25 +975,31 @@
 
         function checkPropertyAvailability() {
 
-            console.log("inside")
+            //console.log("inside")
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    try {
-                        var resp = JSON.parse(this.responseText)
-                        console.log(resp)
-                        var summ = 0
-                        if (resp.response.data != null) {
-                            Object.entries(resp.response.data).forEach(([key, value]) => {
-                                //console.log(`${value.fieldData.TotalRoomsBooked}`);
-                                summ += value.fieldData.TotalRoomsBooked
-                            });
+                    if (this.responseText != "" || this.responseText == null) {
+
+                        try {
+                            var resp = JSON.parse(this.responseText)
+                            // console.log(this.responseText)
+                            var summ = 0
+                            if (resp.response.data != null) {
+                                Object.entries(resp.response.data).forEach(([key, value]) => {
+                                    console.log(`${value.fieldData.TotalRoomsBooked}`);
+                                    summ += value.fieldData.TotalRoomsBooked
+                                });
+                            }
+                            //console.log(summ)
+                            document.getElementById('BookedRooms').value = summ
+                        } catch (e) {
+                            console.log(e)
                         }
-                        //console.log(summ)
-                        document.getElementById('BookedRooms').value = summ
-                    } catch (e) {
-                        console.log(e)
+                    } else {
+                        alert("some error occured please try after some time")
                     }
+                    //console.log(this.responseText)
                     //alert(this.response);
                 }
             };
@@ -1039,7 +1028,7 @@
                 month = "0" + month;
             year = checkOutDate.getFullYear()
             var checkOut = `${month}~${date}~${year}`
-            //checkOut = "08~19~2024"
+            //checkOut = "≤ 08~19~2024"
             var propertyId = document.getElementById('propertyId').value
             var requestObject = {
                 "checkin": checkIn,

@@ -15,15 +15,24 @@ class Home extends BaseController
         var_dump($this->auth->generateAuthenticationToken());
     }
     */
-    
+
+
 
     //this function just loads the index page
-    public function index(): string
+    public function index()
     {
-         /* $token = $this->auth->generateAuthenticationToken();
+        /* $token = $this->auth->generateAuthenticationToken();
         echo $token; 
         var_dump( $this->auth->generateAuthenticationToken()); */
+        // self::getSpecificDate();
         return view('SplashScreen');
     }
-}
 
+
+    public function getSpecificDate()
+    {
+        $api = service('getPropertiesApisInstance');
+        $response = $api->getPropertyAvailabilityForSpecificDate("08/15/2024", "08/19/2024", 1);
+        var_dump($response);
+    }
+}
