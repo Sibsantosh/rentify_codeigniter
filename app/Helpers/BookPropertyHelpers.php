@@ -13,19 +13,30 @@ class BookPropertyHelpers{
         $bookingsResponse = $this->bookPropertyApis->CreateBooking($bookingsModel);
         //var_dump($bookingsResponse);
         $decodedJson = json_decode($bookingsResponse, true);
-        $bookingId = $decodedJson["response"]["recordId"];
-        //sleep(1);
-        var_dump($this->bookPropertyApis->FetchBookingId($bookingId));
-        //var_dump($bookingId);
+        return $decodedJson["response"]["recordId"];
         }
         catch(Exception $e){
-            echo $e->getMessage();
+             $e->getMessage();
         }
+    return null;
+    }
+    public function fetchBookingIdFromRecordId($recordId){
+        try{
+            return $this->bookPropertyApis->FetchBookingId($recordId);
+        }catch(Exception $e){
+             $e->getMessage();
+        }
+        return null;
+    }
 
+    public function CreatePaymentDetails($paymentModel) {
+        try{
+            return $this->bookPropertyApis->CreatePaymentDetails($paymentModel);
 
-
-
-
+        }catch(Exception $e){
+            $e->getMessage();
+        }
+        return null;
     }
 }
 

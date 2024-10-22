@@ -6,6 +6,7 @@ use App\APIS\Api_Wrapper\PostApi;
 use App\APIS\Interfaces\IBookPropertyApis;
 use App\APIS\Interfaces\IGetAuthenticationToken;
 use Exception;
+use App\Models\PaymentModel;
 
 class BookPropertyApis implements IBookPropertyApis{
     private IGetAuthenticationToken $token;
@@ -61,10 +62,41 @@ class BookPropertyApis implements IBookPropertyApis{
             $decodedJson = json_decode($resp, true);
             return $decodedJson ["response"]["data"][0]["fieldData"]["BookingId"];
         } catch (Exception $e) {
-            $e->getMessage();
+             $e->getMessage();
         }
     }
-    public function CreatePaymentDetails(){
+    public function CreatePaymentDetails($paymentModel){
+        $route = getenv('create_new_payment');
+       
+      // $paymentModel = new PaymentModel("","","","");
+        $dataArray = array("fieldData" => array(
+            "BookingId" =>$paymentModel->getBookingId(),
+            "Amount"=>$paymentModel-> getAmount(),
+            "Method"=> $paymentModel->getMethod(),
+            "Status"=> $paymentModel->getStatus(),
+            "DiscountId" => $paymentModel->getDiscountId()==null?"":$paymentModel->getDiscountId(),
+            "PaymentMethods" => $paymentModel->getMethod(),
+            "CardNumber" => $paymentModel->getCardNumber()==null?"":$paymentModel->getCardNumber(),
+            "Expiry" =>$paymentModel->getCardExpiry()==null?"":$paymentModel->getCardExpiry(),
+            "CVV" =>$paymentModel->getCardCvv()==null?"":$paymentModel->getCardCvv(),
+            "UpiId" =>$paymentModel->getUpiId()==null?"":$paymentModel->getUpiId()
+            
+        ));
+        $data = json_encode($dataArray);
+        $auth_token = $this->token->generateAuthenticationToken(); //GetAuthenticationToken::generateAuthenticationToken();
+
+        if ($auth_token == null) {
+            return null;
+        }
+        $ch = PostApi::POST_API($route, $auth_token, $data);
+        try {
+            $resp = curl_exec($ch);
+            curl_close($ch);
+            return $resp;
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return null;
 
     }
 }

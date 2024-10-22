@@ -13,7 +13,7 @@ $routes->match(['GET','POST'],'/dashboard','UserDashboard::index');
 $routes->match(['GET','POST'],'/property/(:any)','UserDashboard::checkProperty/$1');
 $routes->match(['GET','POST'],'/bookProperty','BookPropertyController::index');
 $routes->match(['GET','POST'],'/confirmBookProperty','BookPropertyController::index');
-$routes->match(['GET','POST'],'/cff/(:any)','BookPropertyController::confirmBookPropery/$1');
+$routes->match(['GET','POST'],'/cff','BookPropertyController::confirmBookPropery');
 $routes->match(['GET','POST'],'/checkAvailability/(:any)','BookPropertyController::checkAvailabilityForSpecificProperty/$1');
 //$routes->match(['GET','POST'],'/checkAvailability/(:any)','BookPropertyController::checkAvailabilityForSpecificProperty/$1');
 

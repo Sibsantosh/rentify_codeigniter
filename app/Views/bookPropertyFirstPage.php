@@ -708,7 +708,22 @@
                 }
             } */
 
-            window.location.href = '<?php echo base_url('cff/') ?>' + getFormDataString()
+            var postData = getFormDataString()
+            fetch('<?php echo base_url('cff') ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData) // Convert data to JSON
+            })
+            .then(response => response.json()) // Assuming you return JSON from the server
+            .then(data => {
+                console.log('Success:', data['receivedData']);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            //window.location.href = '<?php //echo base_url('cff/') ?>' + getFormDataString()
 
             // Here you would typically send this data to a server
         }
@@ -717,7 +732,7 @@
 
         function getFormDataString() {
             // Get all the form fields
-            const checkinDate = document.getElementById('checkin').value;
+             const checkinDate = document.getElementById('checkin').value;
             const checkoutDate = document.getElementById('checkout').value;
             const propertyId = document.getElementById('propertyId').value
             const guests = document.getElementById('guests').value;
@@ -745,7 +760,7 @@
             
 
             // Construct the string
-            let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${totalGuests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~total-price~${totalAmount}~~total-rooms~${totalRooms}~~payment-method~${paymentMethod}`;
+           /* let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${totalGuests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~total-price~${totalAmount}~~total-rooms~${totalRooms}~~payment-method~${paymentMethod}`;
 
             // Add payment details based on the selected payment method
             if (paymentMethod === 'credit-card') {
@@ -756,7 +771,38 @@
                 formDataString += `~~upi-id~${upiId}`;
             }
 
-            return formDataString;
+            return formDataString; */
+
+            let formDataJson = {
+            "checkin": checkinDate,
+            "checkout": checkoutDate,
+            "propertyId": propertyId,
+            "guests": totalGuests,
+            "room-type": roomType,
+            "room-plan": roomPlan,
+            "guest-comment": guestComment,
+            "total-price": totalAmount,
+            "total-rooms": totalRooms,
+            "payment-method": paymentMethod
+        };
+
+        // Add payment details based on the selected payment method
+        if (paymentMethod === 'credit-card') {
+            formDataJson['credit-card-number'] = creditCardNumber;
+            formDataJson['credit-card-expiry'] = creditCardExpiry;
+            formDataJson['credit-card-cvv'] = creditCardCVV;
+        } else if (paymentMethod === 'debit-card') {
+            formDataJson['debit-card-number'] = debitCardNumber;
+            formDataJson['debit-card-expiry'] = debitCardExpiry;
+            formDataJson['debit-card-cvv'] = debitCardCVV;
+        } else if (paymentMethod === 'upi') {
+            formDataJson['upi-id'] = upiId;
+        }
+
+        // Now you have a JSON object
+        //console.log(JSON.stringify(formDataJson));  // To convert to JSON string if needed
+        return formDataJson;
+
         }
 
 

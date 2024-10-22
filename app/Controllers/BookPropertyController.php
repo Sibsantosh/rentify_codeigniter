@@ -49,9 +49,9 @@ class BookPropertyController extends BaseController
 
     // this function is used when we are confirming any bookings i.e when we are giving all the data and creating a booking
     //this fucntion will be calling two apis one for booking and other for the payment and storing both the data
-    function confirmBookPropery($data)
+    function confirmBookPropery()
     {
-        $pairs = explode('~~', $data);
+        /*$pairs = explode('~~', $data);
 
         // Initialize an associative array to hold the key-value pairs
         $formDataArray = [];
@@ -79,7 +79,56 @@ class BookPropertyController extends BaseController
        // $helper->createBooking($bookingsModel);
 
 
-        //return redirect()->redirect(base_url().'dashboard');
+        return redirect()->redirect(base_url().'dashboard');*/
+        $formDataArray = json_decode(file_get_contents('php://input'), true);
 
+        // Now you can access the posted data
+
+
+        // Do something with the data (e.g., save to the database)
+
+        // Send a response back to the client
+        $userId = session()->get('authenticatedUser')->getUserId();
+        $bookingsModel = new BookingsModel(0, $userId, $formDataArray["propertyId"], $formDataArray["checkin"], $formDataArray["checkout"], $formDataArray["total-price"], $formDataArray["guest-comment"], "Requested", $formDataArray["total-rooms"]);
+        //var_dump($bookingsModel);
+        $paymentModel = new PaymentModel($formDataArray["total-price"], $formDataArray["payment-method"], "Completed", "");
+        if ($formDataArray["payment-method"] == "credit-card") {
+            $paymentModel->setStatus("Competed");
+            $paymentModel->setCardNumber($formDataArray["credit-card-number"]);
+            $paymentModel->setCardExpiry($formDataArray["credit-card-expiry"]);
+            $paymentModel->setCardCvv($formDataArray['credit-card-cvv']);
+            $paymentModel->setMethod("Credit Card");
+        } else if ($formDataArray["payment-method"] == "debit-card") {
+            $paymentModel->setStatus("Competed");
+            $paymentModel->setCardNumber($formDataArray["debit-card-number"]);
+            $paymentModel->setCardExpiry($formDataArray["debit-card-expiry"]);
+            $paymentModel->setCardCvv($formDataArray['debit-card-cvv']);
+            $paymentModel->setMethod("Debit Card");
+        } else if ($formDataArray["payment-method"] == 'upi') {
+            $paymentModel->setStatus("Competed");
+            $paymentModel->setUpiId($formDataArray['upiId']);
+            $paymentModel->setMethod("UPI");
+        } else {
+            $paymentModel->setMethod("Pay Later");
+            $paymentModel->setStatus("Pending");
+        }
+
+
+        //var_dump($paymentModel);
+        $helper = new BookPropertyHelpers();
+        $recordId = $helper->createBooking($bookingsModel);
+        $bookingId = $helper->fetchBookingIdFromRecordId($recordId);
+        $paymentModel->setBookingId($bookingId);
+        $helper->CreatePaymentDetails($paymentModel);
+        
+        
+        // Return the response as JSON
+        $response = array(
+            'status' => 'success',
+            'message' => 'Data received successfully',
+            'receivedData' => 'Property Booked Successfully'
+        );
+
+        echo json_encode($response);
     }
 }
