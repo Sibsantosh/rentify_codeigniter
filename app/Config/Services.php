@@ -6,6 +6,7 @@ use App\APIS\Repositories\AuthenticationApis;
 use App\APIS\Repositories\GetAuthenticationToken;
 use App\APIS\Repositories\GetCouponsApis;
 use App\APIS\Repositories\PropertiesApis;
+use App\APIS\Repositories\BookPropertyApis;
 use CodeIgniter\Config\BaseService;
 
 /**
@@ -23,7 +24,7 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
-    /*
+   /*
      * public static function example($getShared = true)
      * {
      *     if ($getShared) {
@@ -34,16 +35,23 @@ class Services extends BaseService
      * }
      */
 
-     public static function getAuthenticationTokenInstance(){
-        return new GetAuthenticationToken();
-     }
-     public static function getAuthenticationApiInstance(){
-        return new AuthenticationApis();
-     }
-     public static function getCouponApiInstance(){
-        return new GetCouponsApis();
-     }
-     public static function getPropertiesApisInstance(){
-        return new PropertiesApis();
-     }
+   public static function getAuthenticationTokenInstance()
+   {
+      return new GetAuthenticationToken();
+   }
+   public static function getAuthenticationApiInstance()
+   {
+      return new AuthenticationApis();
+   }
+   public static function getCouponApiInstance()
+   {
+      return new GetCouponsApis();
+   }
+   public static function getPropertiesApisInstance()
+   {
+      return new PropertiesApis();
+   }
+   public static function getBookPropertyApisInstance() {
+      return new BookPropertyApis();
+   }
 }

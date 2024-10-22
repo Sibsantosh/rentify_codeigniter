@@ -6,6 +6,9 @@ use App\APIS\Interfaces\IGetCouponsApis;
 use App\APIS\Interfaces\IPropertiesApis;
 use App\APIS\Repositories\GetCouponsApis;
 use App\APIS\Repositories\PropertiesApis;
+use App\Helpers\BookPropertyHelpers;
+use App\Models\BookingsModel;
+use App\Models\PaymentModel;
 
 class BookPropertyController extends BaseController
 {
@@ -61,7 +64,19 @@ class BookPropertyController extends BaseController
             // Add the key-value pair to the associative array
             $formDataArray[$key] = $value;
         }
+        //var_dump($formDataArray);
+        $userId = session()->get('authenticatedUser')->getUserId();
+        $bookingsModel = new BookingsModel(0,$userId,$formDataArray["propertyId"],$formDataArray["checkin"],$formDataArray["checkout"],$formDataArray["total-price"],$formDataArray["guest-comment"],"Requested",$formDataArray["total-rooms"]);
         var_dump($formDataArray);
+        $paymentModel = new PaymentModel($formDataArray["total-price"],$formDataArray["payment-method"],"Completed","");
+        if($formDataArray["payment-method"]=="credit-card" || $formDataArray["payment-method"]=="debit-card"){
+            $paymentModel->setStatus("Competed");
+            $paymentModel->setCardNumber($formDataArray["credit-card-number"]);
+            $paymentModel->setCardExpiry($formDataArray["credit-card-expiry"]);
+
+        }
+        //$helper = new BookPropertyHelpers();
+       // $helper->createBooking($bookingsModel);
 
 
         //return redirect()->redirect(base_url().'dashboard');

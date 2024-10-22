@@ -15,85 +15,9 @@
             background-color: #f5f5f5;
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-            background: #ffffff;
-            padding-left: 40px;
-            padding-right: 40px;
-        }
-
-        .top-bar input[type="text"] {
-            padding: 10px;
-            font-size: 14px;
-            width: 250px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .admin-section {
-            display: flex;
-            align-items: center;
-        }
-
-        .admin-section span {
-            margin-right: 10px;
-        }
-
-        .admin-section img {
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-        }
-
-        .top-bar h2 {
-            margin: 0;
-            padding: 10px 0;
-            font-size: 24px;
-            color: #007BFF;
-            font-weight: 500;
-        }
-
-        .container {
+        <?php include('common/top-bar.css'); ?><?php include('common/side-bar.css'); ?>.container {
             display: flex;
             height: 100vh;
-        }
-
-        .sidebar {
-            width: 120px;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-right: 1px solid #ddd;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            height: 25rem;
-        }
-
-        .sidebar ul li {
-            display: flex;
-            align-items: center;
-            height: 40rem;
-            flex-direction: column;
-        }
-
-        .sidebar ul li i {
-            margin-right: 10px;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-            font-weight: 500;
         }
 
         .content {
@@ -442,14 +366,14 @@
 </head>
 
 <body>
-    <div class="top-bar-container">
 
-        <?php include('common/top-bar.php'); ?>
-    </div>
+
+    <?php include('common/top-bar.php'); ?>
+
     <div class="container">
-        <div class="sidebar-container">
-            <?php include('common/side-bar.php'); ?>
-        </div>
+
+        <?php include('common/side-bar.php'); ?>
+
         <div class="content">
             <input type="hidden" value="<?php if (isset($selectedProperty)) {
                                             echo $selectedProperty->getPropertyId();
@@ -538,6 +462,7 @@
                         <p>Payment Summary</p>
                         <p id="payable-amount">Payable Amount: ₹0.00</p>
                         <p id="discount">Discount: ₹0.00</p>
+                        <hr>
                         <p id="total">Total: ₹0.00</p>
                     </div>
 
@@ -683,6 +608,8 @@
     <script>
         var discount_Percentage = 0;
 
+        var coupon_code = "";
+        var totalAmount = 0;
         function showPopup() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('popup-overlay').style.display = 'block';
@@ -765,7 +692,7 @@
                 return;
             }
 
-            // Proceed with booking
+           /*  // Proceed with booking
             alert('Property booked successfully!');
             var data = {
                 "name": "John Doe",
@@ -779,7 +706,7 @@
                     "state": "CA",
                     "postalCode": "12345"
                 }
-            }
+            } */
 
             window.location.href = '<?php echo base_url('cff/') ?>' + getFormDataString()
 
@@ -807,9 +734,18 @@
             const debitCardExpiry = document.getElementById('debit-card-expiry').value;
             const debitCardCVV = document.getElementById('debit-card-cvv').value;
             const upiId = document.getElementById('upi-id').value;
+            var adults = document.getElementById('adults').value;
+            var children = document.getElementById('children').value;
+            var infants = document.getElementById('infants').value;
+            var totalGuests = parseInt(adults)+parseInt(children)+parseInt(infants);
+            var totalPersons = (totalGuests % 2 != 0) ? totalGuests + 1 : totalGuests
+
+            var totalRooms = (totalPersons) / 2;
+            
+            
 
             // Construct the string
-            let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${guests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~payment-method~${paymentMethod}`;
+            let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${totalGuests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~total-price~${totalAmount}~~total-rooms~${totalRooms}~~payment-method~${paymentMethod}`;
 
             // Add payment details based on the selected payment method
             if (paymentMethod === 'credit-card') {
@@ -950,8 +886,9 @@
 
             var totalPrice = PayableAmount - discountAmount
             document.getElementById('payable-amount').innerText = `Payable Amount: ₹${PayableAmount.toFixed(2)}`;
-            document.getElementById('discount').innerText = `Payable Amount: ₹${discountAmount.toFixed(2)}`;
-            document.getElementById('total').innerText = `Payable Amount: ₹${totalPrice.toFixed(2)}`;
+            document.getElementById('discount').innerText = `Discount: ₹${discountAmount.toFixed(2)}`;
+            document.getElementById('total').innerText = `Total: ₹${totalPrice.toFixed(2)}`;
+            totalAmount = totalPrice;
 
             console.log(totalPrice)
 

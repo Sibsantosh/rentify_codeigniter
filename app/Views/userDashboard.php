@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rentify</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -14,89 +15,11 @@
             background-color: #f5f5f5;
         }
 
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-            background: #ffffff;
-            padding-left: 40px;
-            padding-right: 40px;
-
-        }
-
-        .top-bar input[type="text"] {
-            padding: 10px;
-            font-size: 14px;
-            width: 250px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .admin-section {
-            display: flex;
-            align-items: center;
-        }
-
-        .admin-section span {
-            margin-right: 10px;
-        }
-
-        .admin-section img {
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-        }
-
-        .top-bar h2 {
-            margin: 0;
-            padding: 10px 0;
-            font-size: 24px;
-            color: #007BFF;
-            font-weight: 500;
-        }
-
-        .container {
+        <?php include('common/top-bar.css'); ?><?php include('common/side-bar.css'); ?>.container {
             display: flex;
             height: 100vh;
         }
 
-        .sidebar {
-            width: 120px;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-right: 1px solid #ddd;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            /* Evenly space the list items */
-            height: 25rem;
-        }
-
-        .sidebar ul li {
-            display: flex;
-            align-items: center;
-            height: 40rem;
-            flex-direction: column;
-        }
-
-        .sidebar ul li i {
-            margin-right: 10px;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-            font-weight: 500;
-        }
 
         .content {
             flex-grow: 1;
@@ -243,14 +166,14 @@
 </head>
 
 <body>
-   
-        <?php include('common/top-bar.php'); ?>
+
+    <?php include('common/top-bar.php'); ?>
 
     <div class="container">
 
-       
-            <?php include('common/side-bar.php'); ?>
-   
+
+        <?php include('common/side-bar.php'); ?>
+
         <div class="content">
 
 
