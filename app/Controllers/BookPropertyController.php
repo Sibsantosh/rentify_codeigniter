@@ -37,13 +37,17 @@ class BookPropertyController extends BaseController
         }
     }
     //this function checks the availability of any property and returns the data to the view and used for checking the availability of a page
-    function checkAvailabilityForSpecificProperty($jsonData)
+    function checkAvailabilityForSpecificProperty()
     {
-        $splitArr = explode("~~", $jsonData);
-        $checkInDate = str_replace("~", "/", $splitArr[0]);
-        $checkOutDate = str_replace("~", "/", $splitArr[1]);
-        $propertyid = $splitArr[2];
-        echo ($this->propetryApis->getPropertyAvailabilityForSpecificDate($checkInDate, $checkOutDate, $propertyid));
+            
+        $propertyData = json_decode(file_get_contents('php://input'), true);
+        $checkInDate = $propertyData['checkin'];
+        $checkOutDate = $propertyData['checkout'];
+        $propertyid = $propertyData['propertyId'];
+        $resp = $this->propetryApis->getPropertyAvailabilityForSpecificDate($checkInDate, $checkOutDate, $propertyid);
+        
+
+        echo json_encode($resp);
     }
 
 
@@ -51,35 +55,7 @@ class BookPropertyController extends BaseController
     //this fucntion will be calling two apis one for booking and other for the payment and storing both the data
     function confirmBookPropery()
     {
-        /*$pairs = explode('~~', $data);
-
-        // Initialize an associative array to hold the key-value pairs
-        $formDataArray = [];
-
-        // Iterate over each pair
-        foreach ($pairs as $pair) {
-            // Split each pair by the '~' delimiter
-            list($key, $value) = explode('~', $pair, 2);
-
-            // Add the key-value pair to the associative array
-            $formDataArray[$key] = $value;
-        }
-        //var_dump($formDataArray);
-        $userId = session()->get('authenticatedUser')->getUserId();
-        $bookingsModel = new BookingsModel(0,$userId,$formDataArray["propertyId"],$formDataArray["checkin"],$formDataArray["checkout"],$formDataArray["total-price"],$formDataArray["guest-comment"],"Requested",$formDataArray["total-rooms"]);
-        var_dump($formDataArray);
-        $paymentModel = new PaymentModel($formDataArray["total-price"],$formDataArray["payment-method"],"Completed","");
-        if($formDataArray["payment-method"]=="credit-card" || $formDataArray["payment-method"]=="debit-card"){
-            $paymentModel->setStatus("Competed");
-            $paymentModel->setCardNumber($formDataArray["credit-card-number"]);
-            $paymentModel->setCardExpiry($formDataArray["credit-card-expiry"]);
-
-        }
-        //$helper = new BookPropertyHelpers();
-       // $helper->createBooking($bookingsModel);
-
-
-        return redirect()->redirect(base_url().'dashboard');*/
+        
         $formDataArray = json_decode(file_get_contents('php://input'), true);
 
         // Now you can access the posted data
