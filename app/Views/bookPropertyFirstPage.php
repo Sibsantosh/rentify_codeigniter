@@ -610,6 +610,7 @@
 
         var coupon_code = "";
         var totalAmount = 0;
+
         function showPopup() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('popup-overlay').style.display = 'block';
@@ -692,47 +693,45 @@
                 return;
             }
 
-           /*  // Proceed with booking
-            alert('Property booked successfully!');
-            var data = {
-                "name": "John Doe",
-                "age": 30,
-                "email": "johndoe@example.com",
-                "isEmployed": true,
-                "skills": ["JavaScript", "Python", "HTML"],
-                "address": {
-                    "street": "123 Main St",
-                    "city": "Anytown",
-                    "state": "CA",
-                    "postalCode": "12345"
-                }
-            } */
+            /*  // Proceed with booking
+             alert('Property booked successfully!');
+             var data = {
+                 "name": "John Doe",
+                 "age": 30,
+                 "email": "johndoe@example.com",
+                 "isEmployed": true,
+                 "skills": ["JavaScript", "Python", "HTML"],
+                 "address": {
+                     "street": "123 Main St",
+                     "city": "Anytown",
+                     "state": "CA",
+                     "postalCode": "12345"
+                 }
+             } */
 
             var postData = getFormDataString()
             fetch('<?php echo base_url('cff') ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(postData) // Convert data to JSON
-            })
-            .then(response => response.json()) // Assuming you return JSON from the server
-            .then(data => {
-                console.log('Success:', data['receivedData']);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-            //window.location.href = '<?php //echo base_url('cff/') ?>' + getFormDataString()
-
-            // Here you would typically send this data to a server
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(postData) // Convert data to JSON
+                })
+                .then(response => response.json()) // Assuming you return JSON from the server
+                .then(data => {
+                    console.log('Success:', data['receivedData']);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            
         }
 
 
 
         function getFormDataString() {
             // Get all the form fields
-             const checkinDate = document.getElementById('checkin').value;
+            const checkinDate = document.getElementById('checkin').value;
             const checkoutDate = document.getElementById('checkout').value;
             const propertyId = document.getElementById('propertyId').value
             const guests = document.getElementById('guests').value;
@@ -752,56 +751,43 @@
             var adults = document.getElementById('adults').value;
             var children = document.getElementById('children').value;
             var infants = document.getElementById('infants').value;
-            var totalGuests = parseInt(adults)+parseInt(children)+parseInt(infants);
+            var totalGuests = parseInt(adults) + parseInt(children) + parseInt(infants);
             var totalPersons = (totalGuests % 2 != 0) ? totalGuests + 1 : totalGuests
 
             var totalRooms = (totalPersons) / 2;
-            
-            
 
-            // Construct the string
-           /* let formDataString = `checkin~${checkinDate}~~checkout~${checkoutDate}~~propertyId~${propertyId}~~guests~${totalGuests}~~room-type~${roomType}~~room-plan~${roomPlan}~~guest-comment~${guestComment}~~total-price~${totalAmount}~~total-rooms~${totalRooms}~~payment-method~${paymentMethod}`;
+
+
+           
+            let formDataJson = {
+                "checkin": checkinDate,
+                "checkout": checkoutDate,
+                "propertyId": propertyId,
+                "guests": totalGuests,
+                "room-type": roomType,
+                "room-plan": roomPlan,
+                "guest-comment": guestComment,
+                "total-price": totalAmount,
+                "total-rooms": totalRooms,
+                "payment-method": paymentMethod
+            };
 
             // Add payment details based on the selected payment method
             if (paymentMethod === 'credit-card') {
-                formDataString += `~~credit-card-number~${creditCardNumber}~~credit-card-expiry~${creditCardExpiry}~~credit-card-cvv~${creditCardCVV}`;
+                formDataJson['credit-card-number'] = creditCardNumber;
+                formDataJson['credit-card-expiry'] = creditCardExpiry;
+                formDataJson['credit-card-cvv'] = creditCardCVV;
             } else if (paymentMethod === 'debit-card') {
-                formDataString += `~~debit-card-number~${debitCardNumber}~~debit-card-expiry~${debitCardExpiry}~~debit-card-cvv~${debitCardCVV}`;
+                formDataJson['debit-card-number'] = debitCardNumber;
+                formDataJson['debit-card-expiry'] = debitCardExpiry;
+                formDataJson['debit-card-cvv'] = debitCardCVV;
             } else if (paymentMethod === 'upi') {
-                formDataString += `~~upi-id~${upiId}`;
+                formDataJson['upi-id'] = upiId;
             }
 
-            return formDataString; */
-
-            let formDataJson = {
-            "checkin": checkinDate,
-            "checkout": checkoutDate,
-            "propertyId": propertyId,
-            "guests": totalGuests,
-            "room-type": roomType,
-            "room-plan": roomPlan,
-            "guest-comment": guestComment,
-            "total-price": totalAmount,
-            "total-rooms": totalRooms,
-            "payment-method": paymentMethod
-        };
-
-        // Add payment details based on the selected payment method
-        if (paymentMethod === 'credit-card') {
-            formDataJson['credit-card-number'] = creditCardNumber;
-            formDataJson['credit-card-expiry'] = creditCardExpiry;
-            formDataJson['credit-card-cvv'] = creditCardCVV;
-        } else if (paymentMethod === 'debit-card') {
-            formDataJson['debit-card-number'] = debitCardNumber;
-            formDataJson['debit-card-expiry'] = debitCardExpiry;
-            formDataJson['debit-card-cvv'] = debitCardCVV;
-        } else if (paymentMethod === 'upi') {
-            formDataJson['upi-id'] = upiId;
-        }
-
-        // Now you have a JSON object
-        //console.log(JSON.stringify(formDataJson));  // To convert to JSON string if needed
-        return formDataJson;
+            // Now you have a JSON object
+            //console.log(JSON.stringify(formDataJson));  // To convert to JSON string if needed
+            return formDataJson;
 
         }
 
@@ -975,69 +961,49 @@
 
         function checkPropertyAvailability() {
 
-            //console.log("inside")
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    if (this.responseText != "" || this.responseText == null) {
-
-                        try {
-                            var resp = JSON.parse(this.responseText)
-                            // console.log(this.responseText)
-                            var summ = 0
-                            if (resp.response.data != null) {
-                                Object.entries(resp.response.data).forEach(([key, value]) => {
-                                    console.log(`${value.fieldData.TotalRoomsBooked}`);
-                                    summ += value.fieldData.TotalRoomsBooked
-                                });
-                            }
-                            //console.log(summ)
-                            document.getElementById('BookedRooms').value = summ
-                        } catch (e) {
-                            console.log(e)
-                        }
-                    } else {
-                        alert("some error occured please try after some time")
-                    }
-                    //console.log(this.responseText)
-                    //alert(this.response);
-                }
-            };
-
-
-            var checkInDateField = document.getElementById('checkin');
-            var checkOutDateField = document.getElementById('checkout');
-            var checkOutDate = new Date(checkOutDateField.value)
-            var checkInDate = new Date(checkInDateField.value)
-            //checkInDate = new Date();
-            var date = checkInDate.getDate()
-            if (date < 10)
-                date = "0" + date;
-            var month = checkInDate.getMonth() + 1
-            if (month < 10)
-                month = "0" + month;
-            var year = checkInDate.getFullYear()
-            var checkIn = `${month}~${date}~${year}`
-            //checkIn = "08~15~2024"
-
-            date = checkOutDate.getDate()
-            if (date < 10)
-                date = "0" + date;
-            month = checkOutDate.getMonth() + 1
-            if (month < 10)
-                month = "0" + month;
-            year = checkOutDate.getFullYear()
-            var checkOut = `${month}~${date}~${year}`
-            //checkOut = "≤ 08~19~2024"
+            var checkInDateField = document.getElementById('checkin').value;
+            var checkOutDateField = document.getElementById('checkout').value;
             var propertyId = document.getElementById('propertyId').value
             var requestObject = {
-                "checkin": checkIn,
-                "checkout": checkout,
+                "checkin": checkInDateField,
+                "checkout": checkOutDateField,
                 "propertyId": propertyId
 
             }
-            xhttp.open("GET", "<?php echo base_url() . 'checkAvailability/'; ?>" + checkIn + "~~" + checkOut + "~~" + propertyId, true);
-            xhttp.send();
+
+            fetch('<?php echo base_url('checkAvailability'); ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestObject) // Convert data to JSON
+                })
+                .then(response => response.json()) // Assuming you return JSON from the server
+                .then(data => {
+                    var resp = JSON.parse(data)
+                    console.log('Success:', resp['response']['data'])
+                    try {
+                        var resp = JSON.parse(data)
+                        // console.log(this.responseText)
+                        var summ = 0
+                        if (resp['response']['data'] != null) {
+                            Object.entries(resp['response']['data']).forEach(([key, value]) => {
+                                //console.log(`${value.fieldData.TotalRoomsBooked}`);
+                                summ += value.fieldData.TotalRoomsBooked
+                            });
+                        }
+                        //console.log(summ)
+                        document.getElementById('BookedRooms').value = summ
+                    } catch (e) {
+                        console.log(e)
+                    }
+
+
+
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
 
         function setCheckOutDate() {

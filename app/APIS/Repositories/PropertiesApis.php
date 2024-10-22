@@ -72,10 +72,15 @@ class PropertiesApis implements IPropertiesApis
         /* $ch = curl_init();
         $url = "https://172.16.8.153/fmi/data/vLatest/databases/Rentify/layouts/L_BookingsSelfJoin/_find";*/
         $route = getenv('property_available_for_specific_date_range');
+        $checkinDate = explode('-', $checkIn);
+        $formattedcheckInDate = $checkinDate[0] . '+' . $checkinDate[1] . '+' . $checkinDate[2]; //yyyy-mm-dd
+        $checkOutDate = explode('-', $checkOut);
+        $formattedcheckOutDate = $checkOutDate[0] . '+' . $checkOutDate[1] . '+' . $checkOutDate[2];
+
         $dataArray = array("query" => array(array(
             "PropertyId" => "$propertyId",
-            "CheckInDate" => "≤ $checkOut",
-            "CheckOutDate" => "≥ $checkIn"
+            "CheckInDate" => "≤ $formattedcheckOutDate ",
+            "CheckOutDate" => "≥ $formattedcheckInDate"
         )));
         $data = json_encode($dataArray);
         $auth_token = $this->token->generateAuthenticationToken();

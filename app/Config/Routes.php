@@ -14,6 +14,6 @@ $routes->match(['GET','POST'],'/property/(:any)','UserDashboard::checkProperty/$
 $routes->match(['GET','POST'],'/bookProperty','BookPropertyController::index');
 $routes->match(['GET','POST'],'/confirmBookProperty','BookPropertyController::index');
 $routes->match(['GET','POST'],'/cff','BookPropertyController::confirmBookPropery');
-$routes->match(['GET','POST'],'/checkAvailability/(:any)','BookPropertyController::checkAvailabilityForSpecificProperty/$1');
+$routes->match(['GET','POST'],'/checkAvailability','BookPropertyController::checkAvailabilityForSpecificProperty');
 //$routes->match(['GET','POST'],'/checkAvailability/(:any)','BookPropertyController::checkAvailabilityForSpecificProperty/$1');
 
